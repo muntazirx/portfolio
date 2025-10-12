@@ -47,7 +47,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <Sidebar />
-        <main id="main" className="lg:ml-[40%] xl:ml-[45%] 2xl:ml-[48%]">{children}</main>
+        <main id="main" className="lg:ml-[38%] xl:ml-[43%] 2xl:ml-[46%] pr-4 sm:pr-6 lg:pr-10 xl:pr-14 2xl:pr-20">{children}</main>
       </body>
     </html>
   );

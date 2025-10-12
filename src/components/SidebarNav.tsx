@@ -74,14 +74,14 @@ export default function SidebarNav() {
                 href={`#${s.id}`}
                 aria-current={active === s.id ? "true" : undefined}
                 className={`uppercase ${
-                  active === s.id ? "text-heading" : "text-muted hover:text-heading"
+                  active === s.id ? "text-heading font-semibold" : "text-foreground/60"
                 } relative inline-block`}
               >
                 {s.label}
                 <span
                   aria-hidden
                   className={`absolute left-0 -bottom-1 h-[2px] transition-all duration-300 ${
-                    active === s.id ? "w-full bg-accent" : "w-0 bg-transparent group-hover:w-full group-hover:bg-foreground/30"
+                    active === s.id ? "w-full bg-accent" : "w-0 bg-transparent"
                   }`}
                 />
               </a>
@@ -98,7 +98,7 @@ export default function SidebarNav() {
               <a
                 href={`#${s.id}`}
                 aria-current={active === s.id ? "true" : undefined}
-                className={`${active === s.id ? "text-heading" : "text-muted hover:text-heading"} inline-block`}
+                className={`${active === s.id ? "text-heading font-semibold" : "text-foreground/60"} inline-block`}
               >
                 {s.label}
               </a>

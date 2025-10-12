@@ -31,7 +31,10 @@ export type CertificationItem = {
 export type WritingItem = {
   title: string;
   year: string;
-  href?: string;
+  slug?: string; // internal blog slug (e.g. "/blog/my-post")
+  imageSrc?: string; // thumbnail path in public
+  readingTime?: string; // e.g., "5 min read"
+  href?: string; // external link fallback
 };
 
 export const siteMeta = {
@@ -93,14 +96,13 @@ export const certifications: CertificationItem[] = [
 ];
 
 export const writings: WritingItem[] = [
-  { title: "How I’m building my portfolio in 2025", year: "2025", href: "https://example.com/blog/portfolio-2025" },
-  { title: "Accessibility checks I run before shipping", year: "2025", href: "https://example.com/blog/a11y-checks" },
-  { title: "From design tokens to Tailwind utilities", year: "2024", href: "https://example.com/blog/tokens-to-utilities" },
-  { title: "Scroll-spy patterns that don’t suck", year: "2024", href: "https://example.com/blog/scroll-spy" },
-  { title: "TypeScript ergonomics for React apps", year: "2024", href: "https://example.com/blog/ts-ergonomics" },
-  { title: "Animating underlines with modern CSS", year: "2023", href: "https://example.com/blog/underline-animations" },
-  { title: "Shaping content with JSON data layers", year: "2023", href: "https://example.com/blog/json-content" },
-  { title: "Micro-interactions that matter", year: "2023", href: "https://example.com/blog/micro-interactions" },
+  {
+    title: "How I Scored 95% in the Blue Team Level 1 (BTL1) Exam on My Second Attempt",
+    year: "2025",
+    slug: "btl1-95-second-attempt",
+    imageSrc: "/logos/btl1.png",
+    readingTime: "5 min read",
+  },
 ];
 
 

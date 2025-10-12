@@ -1,6 +1,7 @@
 import Section from "@/components/Section";
 import { aboutParagraphs, experiences, certifications, writings } from "@/data/site";
 import ProjectCard from "@/components/ProjectCard";
+import BlogCard from "@/components/BlogCard";
 import Timeline from "@/components/Timeline";
 import ExternalLink from "@/components/ExternalLink";
 import CredlyBadge from "@/components/CredlyBadge";
@@ -53,16 +54,18 @@ export default function Home() {
         {writings.length === 0 ? (
           <p className="text-foreground/70">No posts yet.</p>
         ) : (
-          <ul className="space-y-3">
+          <div className="space-y-4">
             {writings.map((w) => (
-              <li key={`${w.title}-${w.year}`} className="flex items-baseline justify-between gap-4">
-                <span>
-                  <ExternalLink href={w.href ?? "#"}>{w.title}</ExternalLink>
-                </span>
-                <span className="text-foreground/60 text-sm">{w.year}</span>
-              </li>
+              <BlogCard
+                key={`${w.title}-${w.year}`}
+                title={w.title}
+                year={w.year}
+                readingTime={w.readingTime}
+                imageSrc={w.imageSrc}
+                href={w.slug ? `/blog/${w.slug}` : w.href ?? "#"}
+              />
             ))}
-          </ul>
+          </div>
         )}
       </Section>
 
