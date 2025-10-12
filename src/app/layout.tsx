@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Sidebar from "@/components/Sidebar";
+import AppShell from "@/components/AppShell";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,8 +46,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Sidebar />
-        <main id="main" className="lg:ml-[38%] xl:ml-[43%] 2xl:ml-[46%] pr-4 sm:pr-6 lg:pr-10 xl:pr-14 2xl:pr-20">{children}</main>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
