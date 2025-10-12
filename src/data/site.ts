@@ -44,9 +44,7 @@ export const siteMeta = {
 export const socialLinks: SocialLink[] = [
   { name: "GitHub", href: "https://github.com/bchiang7" },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/bchiang7/" },
-  { name: "CodePen", href: "https://codepen.io/bchiang7" },
-  { name: "Instagram", href: "https://www.instagram.com/bchiang7/" },
-  { name: "Goodreads", href: "https://www.goodreads.com/user/show/7803642-brittany" },
+  { name: "Email", href: "mailto:your@email.com" },
 ];
 
 export const aboutParagraphs: string[] = [

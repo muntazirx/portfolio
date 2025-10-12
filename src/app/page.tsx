@@ -9,6 +9,7 @@ import CertificationCard from "@/components/CertificationCard";
 export default function Home() {
   return (
     <div id="home" className="pt-10 lg:pt-20">
+      <h1 className="sr-only">Muntazir Mehdi — Cyber Security Researcher</h1>
 
       <Section id="about" title="About" hideTitle>
         <div className="space-y-4">

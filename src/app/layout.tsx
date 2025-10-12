@@ -13,15 +13,23 @@ export const metadata: Metadata = {
   title: "Muntazir Mehdi — Cyber Security Researcher",
   description:
     "I research, emulate, and remediate attacks to help teams build secure systems.",
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL("https://your-domain.com"),
   icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Muntazir Mehdi — Cyber Security Researcher",
     description:
       "I research, emulate, and remediate attacks to help teams build secure systems.",
     type: "website",
-    url: "https://example.com",
+    url: "https://your-domain.com",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Muntazir Mehdi" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Muntazir Mehdi — Cyber Security Researcher",
+    description: "I research, emulate, and remediate attacks to help teams build secure systems.",
+    images: ["/og.png"],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

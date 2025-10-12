@@ -45,7 +45,7 @@ export default function CertificationCard({ title, issuer, href, icon, logoSrc, 
         <div className="flex items-center gap-4">
           <div className="h-14 w-14 rounded-lg bg-foreground/10 flex items-center justify-center overflow-hidden">
             {logoSrc ? (
-              <Image src={logoSrc} alt={logoAlt ?? title} width={40} height={40} className="h-10 w-10 object-contain" />
+              <Image src={logoSrc} alt={logoAlt ?? `${title} logo`} width={40} height={40} className="h-10 w-10 object-contain" />
             ) : icon ? (
               <Icon type={icon} />
             ) : null}

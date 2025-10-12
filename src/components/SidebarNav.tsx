@@ -64,28 +64,49 @@ export default function SidebarNav() {
   }, []);
 
   return (
-    <nav aria-label="Section navigation" className="mt-10">
-      <ul className="space-y-5 text-[0.78rem] tracking-wider">
-        {sections.map((s) => (
-          <li key={s.id} className="group">
-            <a
-              href={`#${s.id}`}
-              className={`uppercase ${
-                active === s.id ? "text-heading" : "text-muted hover:text-heading"
-              } relative inline-block`}
-            >
-              {s.label}
-              <span
-                aria-hidden
-                className={`absolute left-0 -bottom-1 h-[2px] transition-all duration-300 ${
-                  active === s.id ? "w-full bg-accent" : "w-0 bg-transparent group-hover:w-full group-hover:bg-foreground/30"
-                }`}
-              />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <>
+      {/* Desktop nav */}
+      <nav aria-label="Section navigation" className="mt-10 hidden lg:block">
+        <ul className="space-y-5 text-[0.78rem] tracking-wider">
+          {sections.map((s) => (
+            <li key={s.id} className="group">
+              <a
+                href={`#${s.id}`}
+                aria-current={active === s.id ? "true" : undefined}
+                className={`uppercase ${
+                  active === s.id ? "text-heading" : "text-muted hover:text-heading"
+                } relative inline-block`}
+              >
+                {s.label}
+                <span
+                  aria-hidden
+                  className={`absolute left-0 -bottom-1 h-[2px] transition-all duration-300 ${
+                    active === s.id ? "w-full bg-accent" : "w-0 bg-transparent group-hover:w-full group-hover:bg-foreground/30"
+                  }`}
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Mobile nav */}
+      <nav aria-label="Section navigation" className="mt-8 lg:hidden">
+        <ul className="flex flex-wrap gap-4 text-xs tracking-wider">
+          {sections.map((s) => (
+            <li key={s.id}>
+              <a
+                href={`#${s.id}`}
+                aria-current={active === s.id ? "true" : undefined}
+                className={`${active === s.id ? "text-heading" : "text-muted hover:text-heading"} inline-block`}
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 }
 
