@@ -12,7 +12,7 @@ export default function ProjectCard({ title, summary, tech, href }: Props) {
       <p className="mt-1 text-foreground/80 text-sm">{summary}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {tech.map((t) => (
-          <span key={t} className="text-xs px-2 py-1 rounded-full bg-foreground/5">
+          <span key={t} className="text-xs px-2 py-1 rounded-full text-accent border border-accent/30 bg-foreground/5">
             {t}
           </span>
         ))}

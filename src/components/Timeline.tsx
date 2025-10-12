@@ -50,7 +50,7 @@ export default function Timeline({ items }: Props) {
             {item.skills.map((s) => (
               <span
                 key={s}
-                className="text-xs px-2 py-1 rounded-full bg-foreground/5 border border-black/5 dark:border-white/10"
+                className="text-xs px-2 py-1 rounded-full text-accent border border-accent/30 bg-foreground/5"
               >
                 {s}
               </span>

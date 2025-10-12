@@ -16,7 +16,7 @@ export default function ExternalLink({ href, children, className, ariaLabel }: P
       aria-label={
         ariaLabel ?? (typeof children === "string" ? `${children} (opens in new tab)` : undefined)
       }
-      className={`inline-flex items-center gap-1 text-accent hover:underline underline-offset-4 ${className ?? ""}`}
+      className={`inline-flex items-center gap-1 hover:underline underline-offset-4 ${className ?? ""}`}
     >
       {children}
       <span className="sr-only">(opens in new tab)</span>
