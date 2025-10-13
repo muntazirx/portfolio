@@ -10,13 +10,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Muntazir Mehdi — IT Support & Cybersecurity",
+  title: "Muntazir Mehdi — Cyber Security Researcher",
   description:
     "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
   metadataBase: new URL("https://your-domain.com"),
   icons: { icon: "/profile.png" },
   openGraph: {
-    title: "Muntazir Mehdi — IT Support & Cybersecurity",
+    title: "Muntazir Mehdi — Cyber Security Researcher",
     description:
       "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
     type: "website",
@@ -26,7 +26,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Muntazir Mehdi — Cyber Security Researcher",
-    description: "I research, emulate, and remediate attacks to help teams build secure systems.",
+    description:
+      "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
     images: ["/og.png"],
   },
   robots: { index: true, follow: true },
