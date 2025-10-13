@@ -107,29 +107,59 @@ export default function BlogPostPage({ params }: Params) {
         </p>
 
         <h2>What the BTL1 Exam Really Is Like</h2>
-        <p>The BTL1 exam is designed to mirror real SOC work rather than a quiz. In practice, that means:</p>
-        <ul>
-          <li>24-hour, hands-on incident response simulation (with an NDA).</li>
-          <li>Spin up a lab environment and investigate a realistic incident scenario.</li>
-          <li>Solve ~20 practical questions using defensive tools learned in the course.</li>
-          <li>Open-book permitted, AI tools disallowed.</li>
-          <li>Success depends on investigation, connecting clues, and clear thinking — not memorization.</li>
-        </ul>
+        <p>
+          The BTL1 exam isn't a quiz. It's a 24-hour, hands-on incident response simulation. The moment you click
+          "Start" you accept an NDA and your lab environment spins up. From that point, you've got one job: solve the
+          scenario using real tools and real thinking.
+        </p>
+        <p>
+          You're given an incident scenario and step into the role of a junior SOC analyst. Your job is to solve 20
+          practical questions using the defensive tools and techniques you learned throughout the course. The exam is
+          open-book, but AI tools aren't allowed. It isn't about memorization—it's about investigating, connecting
+          clues, and thinking like a defender as you would in a real SOC environment.
+        </p>
 
         <h2>My First Attempt — What Went Wrong</h2>
-        <ul>
-          <li>Completed the course and labs, but they didn’t go deep enough for some tasks.</li>
-          <li>Underestimated Splunk and Autopsy — both required more practice than I had.</li>
-          <li>Rushed and didn’t pace myself; ended with 65% (just under the 70% pass mark).</li>
-        </ul>
+        <p>
+          Before my first attempt, I completed the entire BTL1 course and all the labs. I even did some research online, and most people said that if you've studied properly, the official course alone is enough to pass. That turned out not to be true in my case.
+        </p>
+        <p>
+          During the exam, I realized how challenging Splunk and Autopsy actually were. The tasks went deeper than what was covered in the course, and that's where I struggled the most.
+        </p>
+        <p>
+          When I submitted my exam and saw 65% (passing is 70%), it was disappointing — especially because I was aiming for the Gold Coin (awarded for 90%+ on the first try). But looking back, it was clear: I didn't pace myself or prepare deeply enough.
+        </p>
 
         <h2>My Second Attempt — What Changed</h2>
-        <ul>
-          <li>Used the full 24 hours instead of rushing; added a short rest to reset focus.</li>
-          <li>Worked in two sessions (evening + early morning) which improved clarity.</li>
-          <li>Reviewed every answer before submitting — this alone boosted the score.</li>
-        </ul>
-        <p>Result: 95% on the second attempt — proof that persistence and better preparation pay off.</p>
+        <p>
+          When I started my second attempt, I already knew what went wrong before. This time, I made sure to use the
+          full 24 hours and not rush through the exam.
+        </p>
+        <p>
+          Since I work full-time, I started the exam in the evening after work. I solved most of the questions till
+          night, then took a break and continued early in the morning. That short rest helped a lot. I was able to think
+          clearly, and finding answers felt much easier than before.
+        </p>
+        <p>
+          I also made sure to review all my answers before submitting. Taking that extra time really made a difference.
+        </p>
+        <p>
+          Although the Gold Coin is only awarded to those who score 90% or higher on their first attempt, reaching that
+          score on my second try felt just as rewarding. It was proof that persistence and better preparation truly pay
+          off.
+        </p>
+
+        {/* Result callout image */}
+        <div className="panel rounded-lg p-4 my-6 text-center">
+          <Image
+            src="/95-result.png"
+            alt="BTL1 results dashboard showing a 95% score"
+            width={960}
+            height={420}
+            className="mx-auto h-auto w-full max-w-[680px] rounded border border-foreground/10"
+            sizes="(min-width: 1024px) 680px, 100vw"
+          />
+        </div>
 
         <h2>How I Prepared Differently for My Second Attempt</h2>
         <p>
@@ -137,10 +167,26 @@ export default function BlogPostPage({ params }: Params) {
         </p>
         <p>Here are the rooms and labs I focused on:</p>
         <ul>
-          <li>Incident Handling with Splunk (TryHackMe)</li>
-          <li>Investigation with Splunk (TryHackMe)</li>
-          <li>Disk Analysis & Autopsy (TryHackMe)</li>
-          <li>Wireshark: Traffic Analysis (TryHackMe)</li>
+          <li>
+            <a href="https://tryhackme.com/room/splunk201" target="_blank" rel="noopener noreferrer">
+              Incident Handling with Splunk (TryHackMe)
+            </a>
+          </li>
+          <li>
+            <a href="https://tryhackme.com/room/investigatingwithsplunk" target="_blank" rel="noopener noreferrer">
+              Investigation with Splunk (TryHackMe)
+            </a>
+          </li>
+          <li>
+            <a href="https://tryhackme.com/room/autopsy2ze0" target="_blank" rel="noopener noreferrer">
+              Disk Analysis & Autopsy (TryHackMe)
+            </a>
+          </li>
+          <li>
+            <a href="https://tryhackme.com/room/wiresharktrafficanalysis" target="_blank" rel="noopener noreferrer">
+              Wireshark: Traffic Analysis (TryHackMe)
+            </a>
+          </li>
           <li>Retired Sakuna Room on BTLO Labs — a great final practice before the exam.</li>
         </ul>
         <p>
@@ -155,6 +201,21 @@ export default function BlogPostPage({ params }: Params) {
           <li><strong>Focus on Splunk, Autopsy, and Wireshark:</strong> Splunk and Autopsy are the toughest parts — practice them properly. These make or break your score.</li>
           <li><strong>Review Before Submitting:</strong> After long hours, small typos happen. A final pass can turn a near-miss into a full score.</li>
         </ul>
+
+        {/* Certificate proof */}
+        <figure className="my-8">
+          <Image
+            src="/btl1-certificate.jpg"
+            alt="Security Blue Team — Blue Team Level 1 certificate"
+            width={1200}
+            height={850}
+            className="mx-auto h-auto w-full max-w-[820px] rounded border border-foreground/10"
+            sizes="(min-width: 1024px) 820px, 100vw"
+          />
+          <figcaption className="mt-2 text-center text-sm text-muted">
+            BTL1 certificate
+          </figcaption>
+        </figure>
 
         <h2>Closing Thoughts — Is It Worth It?</h2>
         <p>
