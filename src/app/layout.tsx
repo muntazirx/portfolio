@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "I research, emulate, and remediate attacks to help teams build secure systems.",
   metadataBase: new URL("https://your-domain.com"),
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/profile.png" },
   openGraph: {
     title: "Muntazir Mehdi — Cyber Security Researcher",
     description:

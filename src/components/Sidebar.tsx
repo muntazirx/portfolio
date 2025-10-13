@@ -1,5 +1,6 @@
 import SidebarNav from "@/components/SidebarNav";
 import SocialIcons from "@/components/SocialIcons";
+import Image from "next/image";
 import { siteMeta } from "@/data/site";
 
 export default function Sidebar() {
@@ -15,7 +16,10 @@ export default function Sidebar() {
             <p className="mt-6 text-foreground/80 leading-relaxed">{siteMeta.tagline}</p>
             <SidebarNav />
           </div>
-          <div>
+          <div className="flex items-center gap-4">
+            <div className="h-10 w-10 rounded-full overflow-hidden border border-foreground/15">
+              <Image src="/profile.png" alt="Profile photo" width={40} height={40} className="h-10 w-10 object-cover" />
+            </div>
             <SocialIcons />
           </div>
         </div>
