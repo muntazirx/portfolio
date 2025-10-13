@@ -27,6 +27,13 @@ export default function Home() {
       <Section id="certifications" title="Certifications">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <CertificationCard
+            title="Certified Penetration Testing Specialist (CPTS)"
+            issuer="Hack The Box · In progress"
+            href="https://academy.hackthebox.com/preview/certifications/HTB-CPTS"
+            logoSrc="/logos/cpts.png"
+            logoAlt="CPTS"
+          />
+          <CertificationCard
             title="Blue Team Level 1 (BTL1)"
             issuer="Security Blue Team"
             href="https://www.credly.com/badges/fbfa4599-ebcd-467a-aa16-fac609d322a4"
