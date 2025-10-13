@@ -41,7 +41,7 @@ export const siteMeta = {
   name: "Muntazir Mehdi",
   title: "Cyber Security Researcher",
   tagline:
-    "I research, emulate, and remediate attacks to help teams build secure systems.",
+    "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
 };
 
 export const socialLinks: SocialLink[] = [
@@ -51,9 +51,8 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "I’m a Cyber Security Researcher focused on blue‑team operations, threat hunting, DFIR, and security testing. I analyze telemetry across hosts, networks, and cloud platforms to detect adversary activity, emulate attacker tradecraft, and help teams harden their systems.",
-  "I currently work as an IT Support Specialist at Vision Industrial Company (Dammam, Saudi Arabia), delivering first‑line support, securing endpoints, and managing user accounts. I set up new PCs, install and update applications, and ensure systems remain stable and secure while escalating complex issues to senior staff.",
-  "Previously at Asia Pacific University of Technology & Innovation (APU) in Kuala Lumpur, I served as a Security Analyst performing vulnerability assessments and penetration testing in the lab environment, produced clear reports with remediation steps, worked as an IT Intern / Lab Security Analyst imaging devices and troubleshooting hardware/software, and completed SOC Analyst Training using MSSGard SIEM to run searches, create content, and triage alerts.",
+  "Hello! I’m Muntazir, a Cybersecurity graduate currently working as an IT Support Specialist. I enjoy building, securing, and experimenting with technology, and I’m driven by a desire to understand how systems connect and how to protect them.",
+  "Since graduating, I’ve been gaining hands-on experience in IT support — assisting users, managing systems, and learning the real-world side of infrastructure and security. I’m also pursuing the CPTS certification on Hack The Box and building my own homelab, where I explore tools, containerize services, and automate secure self-hosted environments.",
 ];
 
 export const experiences: ExperienceItem[] = [

@@ -8,6 +8,46 @@ import CredlyBadge from "@/components/CredlyBadge";
 import CertificationCard from "@/components/CertificationCard";
 
 export default function Home() {
+  const highlightPhrases = [
+    "IT Support Specialist",
+    "Microsoft 365",
+    "Active Directory",
+    "Azure AD",
+    "Windows",
+    "Linux",
+    "Intune",
+    "VPN",
+    "Wi‑Fi",
+    "MFA",
+    "EDR",
+    "CPTS",
+    "Hack The Box",
+    "TryHackMe",
+    "homelab",
+  ];
+
+  const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const highlightText = (text: string) => {
+    let parts: (string | JSX.Element)[] = [text];
+    for (const phrase of highlightPhrases) {
+      const regex = new RegExp(`(${escapeRegExp(phrase)})`, "gi");
+      parts = parts.flatMap((part, i) => {
+        if (typeof part !== "string") return [part];
+        const split = part.split(regex);
+        return split.map((chunk, idx) =>
+          regex.test(chunk)
+            ? (
+                <span key={`${phrase}-${i}-${idx}`} className="text-heading font-medium">
+                  {chunk}
+                </span>
+              )
+            : chunk
+        );
+      });
+    }
+    return parts;
+  };
+
   return (
     <div id="home" className="pt-10 lg:pt-20">
       <h1 className="sr-only">Muntazir Mehdi — Cyber Security Researcher</h1>
@@ -15,8 +55,22 @@ export default function Home() {
       <Section id="about" title="About" hideTitle>
         <div className="space-y-4">
           {aboutParagraphs.map((p, i) => (
-            <p key={i}>{p}</p>
+            <p key={i}>{highlightText(p)}</p>
           ))}
+        </div>
+        <div className="mt-6">
+          <div className="text-muted text-sm mb-2">Here are a few technologies I’ve been working with recently:</div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm text-foreground/90">
+            {[
+              "Windows & Linux administration",
+              "Active Directory & Microsoft 365",
+              "Docker & virtualization",
+              "Network configuration & troubleshooting",
+              "Scripting for repeatable fixes (PowerShell/Bash)",
+            ].map((t) => (
+              <li key={t} className="before:content-['▹'] before:text-accent before:mr-2">{t}</li>
+            ))}
+          </ul>
         </div>
       </Section>
 

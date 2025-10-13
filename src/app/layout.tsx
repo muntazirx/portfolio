@@ -10,15 +10,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Muntazir Mehdi — Cyber Security Researcher",
+  title: "Muntazir Mehdi — IT Support & Cybersecurity",
   description:
-    "I research, emulate, and remediate attacks to help teams build secure systems.",
+    "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
   metadataBase: new URL("https://your-domain.com"),
   icons: { icon: "/profile.png" },
   openGraph: {
-    title: "Muntazir Mehdi — Cyber Security Researcher",
+    title: "Muntazir Mehdi — IT Support & Cybersecurity",
     description:
-      "I research, emulate, and remediate attacks to help teams build secure systems.",
+      "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
     type: "website",
     url: "https://your-domain.com",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Muntazir Mehdi" }],

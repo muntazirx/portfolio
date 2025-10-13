@@ -18,7 +18,7 @@ export default function BlogCard({ title, year, readingTime, imageSrc, href }: P
         <div className="flex items-center gap-4">
           <div className="h-16 w-24 rounded-md overflow-hidden bg-foreground/10 flex items-center justify-center">
             {imageSrc ? (
-              <Image src={imageSrc} alt="" width={120} height={80} className="h-16 w-24 object-cover" />
+              <Image src={imageSrc} alt="" width={120} height={80} className="h-16 w-24 object-contain" />
             ) : (
               <div className="h-8 w-12 bg-foreground/20 rounded" />
             )}
