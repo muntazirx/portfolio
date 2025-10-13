@@ -1,10 +1,7 @@
 import Section from "@/components/Section";
-import { aboutParagraphs, experiences, certifications, writings } from "@/data/site";
-import ProjectCard from "@/components/ProjectCard";
+import { aboutParagraphs, experiences, writings } from "@/data/site";
 import BlogCard from "@/components/BlogCard";
 import Timeline from "@/components/Timeline";
-import ExternalLink from "@/components/ExternalLink";
-import CredlyBadge from "@/components/CredlyBadge";
 import CertificationCard from "@/components/CertificationCard";
 
 export default function Home() {
@@ -28,7 +25,7 @@ export default function Home() {
 
   const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const highlightText = (text: string) => {
-    let parts: (string | JSX.Element)[] = [text];
+    let parts: (string | React.JSX.Element)[] = [text];
     for (const phrase of highlightPhrases) {
       const regex = new RegExp(`(${escapeRegExp(phrase)})`, "gi");
       parts = parts.flatMap((part, i) => {

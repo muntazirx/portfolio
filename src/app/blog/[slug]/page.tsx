@@ -3,14 +3,15 @@ import Image from "next/image";
 import BlogToc from "@/components/BlogToc";
 import { writings, siteMeta } from "@/data/site";
 
-type Params = { params: { slug: string } };
+type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
   return writings.filter(w => w.slug).map(w => ({ slug: w.slug as string }));
 }
 
-export function generateMetadata({ params }: Params): Metadata {
-  const post = writings.find(w => w.slug === params.slug);
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { slug } = await params;
+  const post = writings.find(w => w.slug === slug);
   const title = post?.title ?? siteMeta.name;
   const description = post?.title ?? siteMeta.tagline;
   return {
@@ -29,8 +30,9 @@ export function generateMetadata({ params }: Params): Metadata {
   };
 }
 
-export default function BlogPostPage({ params }: Params) {
-  const post = writings.find(w => w.slug === params.slug);
+export default async function BlogPostPage({ params }: Params) {
+  const { slug } = await params;
+  const post = writings.find(w => w.slug === slug);
   if (!post) return null;
 
   return (
@@ -108,26 +110,26 @@ export default function BlogPostPage({ params }: Params) {
 
         <h2>What the BTL1 Exam Really Is Like</h2>
         <p>
-          The BTL1 exam isn't a quiz. It's a 24-hour, hands-on incident response simulation. The moment you click
-          "Start" you accept an NDA and your lab environment spins up. From that point, you've got one job: solve the
+          The BTL1 exam isn&apos;t a quiz. It&apos;s a 24-hour, hands-on incident response simulation. The moment you click
+          &ldquo;Start&rdquo; you accept an NDA and your lab environment spins up. From that point, you&apos;ve got one job: solve the
           scenario using real tools and real thinking.
         </p>
         <p>
-          You're given an incident scenario and step into the role of a junior SOC analyst. Your job is to solve 20
+          You&apos;re given an incident scenario and step into the role of a junior SOC analyst. Your job is to solve 20
           practical questions using the defensive tools and techniques you learned throughout the course. The exam is
-          open-book, but AI tools aren't allowed. It isn't about memorization—it's about investigating, connecting
+          open-book, but AI tools aren&apos;t allowed. It isn&apos;t about memorization—it&apos;s about investigating, connecting
           clues, and thinking like a defender as you would in a real SOC environment.
         </p>
 
         <h2>My First Attempt — What Went Wrong</h2>
         <p>
-          Before my first attempt, I completed the entire BTL1 course and all the labs. I even did some research online, and most people said that if you've studied properly, the official course alone is enough to pass. That turned out not to be true in my case.
+          Before my first attempt, I completed the entire BTL1 course and all the labs. I even did some research online, and most people said that if you&apos;ve studied properly, the official course alone is enough to pass. That turned out not to be true in my case.
         </p>
         <p>
-          During the exam, I realized how challenging Splunk and Autopsy actually were. The tasks went deeper than what was covered in the course, and that's where I struggled the most.
+          During the exam, I realized how challenging Splunk and Autopsy actually were. The tasks went deeper than what was covered in the course, and that&apos;s where I struggled the most.
         </p>
         <p>
-          When I submitted my exam and saw 65% (passing is 70%), it was disappointing — especially because I was aiming for the Gold Coin (awarded for 90%+ on the first try). But looking back, it was clear: I didn't pace myself or prepare deeply enough.
+          When I submitted my exam and saw 65% (passing is 70%), it was disappointing — especially because I was aiming for the Gold Coin (awarded for 90%+ on the first try). But looking back, it was clear: I didn&apos;t pace myself or prepare deeply enough.
         </p>
 
         <h2>My Second Attempt — What Changed</h2>
@@ -231,7 +233,7 @@ export default function BlogPostPage({ params }: Params) {
 
       <hr className="my-10 border-foreground/10" />
       <nav className="flex items-center justify-between text-sm">
-        <PrevNext slug={params.slug} />
+        <PrevNext slug={slug} />
       </nav>
     </article>
     </div>
