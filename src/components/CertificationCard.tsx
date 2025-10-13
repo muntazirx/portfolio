@@ -42,8 +42,8 @@ export default function CertificationCard({ title, issuer, href, icon, logoSrc, 
       className="hover-panel block focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-xl"
     >
       <div className="card rounded-xl p-4 transition-all duration-300 min-h-[100px]">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center gap-4">
+          <div className="shrink-0 h-7 w-7 flex items-center justify-center">
             {logoSrc ? (
               <Image src={logoSrc} alt={logoAlt ?? `${title} logo`} width={28} height={28} className="h-7 w-7 object-contain" />
             ) : icon ? (
