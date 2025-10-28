@@ -81,7 +81,7 @@ export default function Home() {
             title="Certified Penetration Testing Specialist (CPTS)"
             issuer="Hack The Box · In progress"
             href="https://academy.hackthebox.com/preview/certifications/HTB-CPTS"
-            logoSrc="/logos/cpts.png"
+            logoSrc="/logos/hackthebox.jpeg"
             logoAlt="CPTS"
           />
           <CertificationCard
