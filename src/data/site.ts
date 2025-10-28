@@ -57,8 +57,8 @@ export const aboutParagraphs: string[] = [
 
 export const experiences: ExperienceItem[] = [
   {
-    company: "Vision Industrial Company · Dammam, Saudi Arabia",
-    role: "IT Support Specialist",
+    company: "GVS Industrial Company · Dammam, Saudi Arabia",
+    role: "IT Support Analyst",
     start: "Jun 2025",
     end: "Present",
     summary:
