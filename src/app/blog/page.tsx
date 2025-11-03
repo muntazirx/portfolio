@@ -3,8 +3,18 @@ import { writings } from "@/data/site";
 import BlogCard from "@/components/BlogCard";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "Writing and notes by Muntazir Mehdi",
+  title: "Blog | Muntazir Mehdi",
+  description: "Writing and notes by Muntazir Mehdi on cybersecurity, certifications, and IT infrastructure.",
+  keywords: ["cybersecurity blog", "blue team", "security certification", "BTL1", "cybersecurity tips"],
+  alternates: {
+    canonical: "https://muntazirmehdi.com/blog",
+  },
+  openGraph: {
+    title: "Blog | Muntazir Mehdi",
+    description: "Writing and notes by Muntazir Mehdi on cybersecurity, certifications, and IT infrastructure.",
+    type: "website",
+    url: "https://muntazirmehdi.com/blog",
+  },
 };
 
 export default function BlogIndexPage() {

@@ -30,6 +30,8 @@ export type CertificationItem = {
 
 export type WritingItem = {
   title: string;
+  description?: string; // SEO description for blog posts
+  keywords?: string[]; // SEO keywords for the post
   year: string;
   slug?: string; // internal blog slug (e.g. "/blog/my-post")
   imageSrc?: string; // thumbnail path in public
@@ -59,12 +61,11 @@ export const experiences: ExperienceItem[] = [
   {
     company: "GVS Industrial Company · Dammam, Saudi Arabia",
     role: "IT Support Analyst",
-    start: "Jun 2025",
+    start: "Jun 2024",
     end: "Present",
     summary:
       "Delivered first‑line support, fixed common hardware/software issues, set up new PCs, installed and updated applications, ensured systems were secure, and handled account management (create/disable/reset passwords). Logged support requests and escalated complex problems to senior IT staff.",
     skills: ["Windows", "Endpoint Security", "Account Management", "Helpdesk", "Troubleshooting"],
-    href: "#",
   },
   {
     company: "Asia Pacific University of Technology & Innovation · Kuala Lumpur, Malaysia",
@@ -74,7 +75,6 @@ export const experiences: ExperienceItem[] = [
     summary:
       "Performed vulnerability assessments and penetration testing on APU lab devices, identified and resolved vulnerabilities, and delivered clear reports with findings and remediation steps.",
     skills: ["Vulnerability Assessment", "Penetration Testing", "Reporting", "Remediation"],
-    href: "#",
   },
   {
     company: "Asia Pacific University of Technology & Innovation · Kuala Lumpur, Malaysia",
@@ -84,7 +84,6 @@ export const experiences: ExperienceItem[] = [
     summary:
       "Deployed and supported lab PCs, imaged devices, configured standard accounts, troubleshot hardware and software issues, and created documentation and user guides for the APU Knowledgebase.",
     skills: ["Imaging", "Account Configuration", "Troubleshooting", "Documentation"],
-    href: "#",
   },
 ];
 
@@ -97,11 +96,16 @@ export const certifications: CertificationItem[] = [
 export const writings: WritingItem[] = [
   {
     title: "How I Scored 95% in the Blue Team Level 1 (BTL1) Exam on My Second Attempt",
+    description: "My journey from failing the BTL1 exam to scoring 95% on my second attempt. Learn about my preparation strategy, key mistakes, and tips for success.",
+    keywords: ["BTL1", "Blue Team Level 1", "cybersecurity certification", "Security Blue Team", "SOC analyst", "incident response", "Splunk", "Autopsy", "Wireshark", "penetration testing", "cybersecurity exam"],
     year: "2025",
     slug: "btl1-95-second-attempt",
     imageSrc: "/logos/btl1.png",
     readingTime: "5 min read",
   },
 ];
+
+// Resume download link
+export const resumeUrl = "/Syed%20Muntazir%20Mehdi%20CV.pdf"; // Public path must be URL-encoded
 
 

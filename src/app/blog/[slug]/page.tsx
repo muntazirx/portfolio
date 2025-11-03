@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import BlogToc from "@/components/BlogToc";
 import { writings, siteMeta } from "@/data/site";
 
@@ -12,20 +14,45 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const post = writings.find(w => w.slug === slug);
-  const title = post?.title ?? siteMeta.name;
-  const description = post?.title ?? siteMeta.tagline;
+  if (!post) {
+    return {
+      title: "Post Not Found",
+      description: "The requested blog post could not be found.",
+    };
+  }
+  const title = `${post.title} | ${siteMeta.name}`;
+  const description = post.description ?? post.title ?? siteMeta.tagline;
+  const url = `https://muntazirmehdi.com/blog/${slug}`;
+  const keywords = post.keywords ? post.keywords.join(", ") : undefined;
+  
   return {
     title,
     description,
+    keywords,
+    authors: [{ name: siteMeta.name }],
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
-      title,
+      title: post.title,
       description,
-      images: post?.imageSrc ? [{ url: post.imageSrc, width: 1200, height: 630, alt: title }] : undefined,
+      type: "article",
+      url,
+      publishedTime: `${post.year}-01-01`,
+      authors: [siteMeta.name],
+      tags: post.keywords,
+      images: post.imageSrc ? [{ 
+        url: `https://muntazirmehdi.com${post.imageSrc}`, 
+        width: 1200, 
+        height: 630, 
+        alt: post.title 
+      }] : undefined,
     },
     twitter: {
-      title,
+      card: "summary_large_image",
+      title: post.title,
       description,
-      images: post?.imageSrc ? [post.imageSrc] : undefined,
+      images: post.imageSrc ? [`https://muntazirmehdi.com${post.imageSrc}`] : undefined,
     },
   };
 }
@@ -33,12 +60,76 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Params) {
   const { slug } = await params;
   const post = writings.find(w => w.slug === slug);
-  if (!post) return null;
+  if (!post) notFound();
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description ?? post.title,
+    image: post.imageSrc ? `https://muntazirmehdi.com${post.imageSrc}` : undefined,
+    datePublished: `${post.year}-01-01`,
+    dateModified: `${post.year}-01-01`,
+    author: {
+      "@type": "Person",
+      name: siteMeta.name,
+      url: "https://muntazirmehdi.com",
+      sameAs: [
+        "https://github.com/muntazirx",
+        "https://www.linkedin.com/in/muntazirx",
+      ],
+    },
+    publisher: {
+      "@type": "Person",
+      name: siteMeta.name,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://muntazirmehdi.com/blog/${slug}`,
+    },
+    keywords: post.keywords ? post.keywords.join(", ") : undefined,
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://muntazirmehdi.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: "https://muntazirmehdi.com/blog",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://muntazirmehdi.com/blog/${slug}`,
+      },
+    ],
+  };
 
   return (
-    <div className="px-6 sm:px-8 py-12 max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[260px_76ch] lg:justify-center gap-10">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <div className="px-6 sm:px-8 py-12 max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[260px_76ch] lg:justify-center gap-10">
       <aside className="hidden lg:block">
-        <BlogToc />
+        <Suspense fallback={null}>
+          <BlogToc />
+        </Suspense>
       </aside>
     <article className="max-w-none">
       <header>
@@ -72,10 +163,20 @@ export default async function BlogPostPage({ params }: Params) {
         )}
         <h2>Before We Begin — A Few Shoutouts to My Friends</h2>
         <p>
-          Before diving in, I want to give a huge shoutout to my brother Shanuka (AKA Shan) for his incredible review of the BTL1 materials and exam. His insights were instrumental in shaping my preparation and expectations. The right perspective can save you hours of guesswork and wasted energy.
+          Before diving in, I want to give a huge shoutout to my brother
+          {" "}
+          <a href="https://www.linkedin.com/in/shanuka-samarasinghe-953a88234/" target="_blank" rel="noopener noreferrer">
+            Shanuka (AKA Shan)
+          </a>
+          {" "}
+          for his incredible review of the BTL1 materials and exam. His insights were instrumental in shaping my preparation and expectations. The right perspective can save you hours of guesswork and wasted energy.
         </p>
         <p>
-          I also want to thank my good friend Justin K. T., who’s always been that grounded voice throughout my cybersecurity journey. His advice came at a time when I needed clarity the most, and it ultimately guided me toward pursuing BTL1.
+          I also want to thank my good friend
+          {" "}
+          <a href="https://www.linkedin.com/in/jkt112/" target="_blank" rel="noopener noreferrer">Justin K. T.</a>
+          ,{" "}
+          who’s always been that grounded voice throughout my cybersecurity journey. His advice came at a time when I needed clarity the most, and it ultimately guided me toward pursuing BTL1.
         </p>
         <p>Below are some references that really guided my journey:</p>
         <ul>
@@ -237,6 +338,7 @@ export default async function BlogPostPage({ params }: Params) {
       </nav>
     </article>
     </div>
+    </>
   );
 }
 

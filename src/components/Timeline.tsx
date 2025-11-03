@@ -24,7 +24,7 @@ export default function Timeline({ items }: Props) {
               <span className="inline-flex items-center gap-2 text-heading font-medium" style={{letterSpacing: "-0.01em"}}>
                 {item.role}
               </span>
-              {item.href ? (
+              {item.href && item.href !== "#" ? (
                 <a
                   href={item.href}
                   target="_blank"

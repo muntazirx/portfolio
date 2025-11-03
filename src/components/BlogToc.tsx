@@ -16,10 +16,19 @@ function slugify(text: string) {
 export default function BlogToc() {
   const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  const [isMounted, setIsMounted] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     const headings = Array.from(document.querySelectorAll<HTMLHeadingElement>("article h2, article h3"));
+    if (headings.length === 0) return;
+
     const generated: TocItem[] = headings.map((h) => {
       if (!h.id) h.id = slugify(h.innerText);
       const level = (h.tagName.toLowerCase() === "h3" ? 3 : 2) as 2 | 3;
@@ -43,10 +52,10 @@ export default function BlogToc() {
     headings.forEach((h) => observer.observe(h));
     observerRef.current = observer;
     return () => observer.disconnect();
-  }, []);
+  }, [isMounted]);
 
   const hasItems = useMemo(() => items.length > 0, [items]);
-  if (!hasItems) return null;
+  if (!isMounted || !hasItems) return null;
 
   return (
     <nav aria-label="On this page" className="sticky top-24">
