@@ -8,7 +8,8 @@ import { getAllPosts } from "@/lib/mdx";
 export default async function Home() {
   const posts = await getAllPosts();
   const highlightPhrases = [
-    "IT Support Specialist",
+    "IT Support Analyst",
+    "Offensive Security",
     "Microsoft 365",
     "Active Directory",
     "Azure AD",
@@ -22,7 +23,7 @@ export default async function Home() {
     "CPTS",
     "Hack The Box",
     "TryHackMe",
-    "homelab",
+    "self-hosted environments",
   ];
 
   const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -46,7 +47,7 @@ export default async function Home() {
 
   return (
     <div id="home" className="pt-10 lg:pt-20">
-      <h1 className="sr-only">Muntazir Mehdi — Cyber Security Researcher</h1>
+      <h1 className="sr-only">Muntazir Mehdi — Cyber Security Practitioner</h1>
 
       <Section id="about" title="About" hideTitle>
         <div className="space-y-4">
@@ -79,7 +80,7 @@ export default async function Home() {
           <CertificationCard
             title="Certified Penetration Testing Specialist (CPTS)"
             issuer="Hack The Box · In progress"
-            href="https://academy.hackthebox.com/preview/certifications/HTB-CPTS"
+            href="https://academy.hackthebox.com/preview/certifications/htb-certified-penetration-testing-specialist"
             logoSrc="/logos/hackthebox.jpeg"
             logoAlt="CPTS"
           />

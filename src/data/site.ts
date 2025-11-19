@@ -41,9 +41,9 @@ export type WritingItem = {
 
 export const siteMeta = {
   name: "Muntazir Mehdi",
-  title: "Cyber Security Researcher",
+  title: "Cyber Security Practitioner",
   tagline:
-    "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
+    "I secure systems, troubleshoot infrastructure, and actively develop offensive security skills through hands-on labs and simulations.",
 };
 
 export const socialLinks: SocialLink[] = [
@@ -53,8 +53,8 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "Hello! I’m Muntazir, a Cybersecurity graduate currently working as an IT Support Specialist. I enjoy building, securing, and experimenting with technology, and I’m driven by a desire to understand how systems connect and how to protect them.",
-  "Since graduating, I’ve been gaining hands-on experience in IT support — assisting users, managing systems, and learning the real-world side of infrastructure and security. I’m also pursuing the CPTS certification on Hack The Box and building my own homelab, where I explore tools, containerize services, and automate secure self-hosted environments.",
+  "Hello! I’m Muntazir, a Cybersecurity graduate currently working as an IT Support Analyst. I am building my career path toward Offensive Security, driven by the belief that deep knowledge of infrastructure and defense is the prerequisite for effective exploitation.",
+  "In my current role, I am gaining hands-on experience with enterprise systems and troubleshooting. I complement this operational foundation by actively training for the CPTS certification and conducting security research in self-hosted environments, where I simulate attack vectors and test advanced methodologies.",
 ];
 
 export const experiences: ExperienceItem[] = [

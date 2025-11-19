@@ -10,19 +10,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Muntazir Mehdi — Cyber Security Researcher",
+  title: "Muntazir Mehdi — Cyber Security Practitioner",
   description:
-    "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
-  keywords: ["cybersecurity", "IT support", "penetration testing", "blue team", "security analyst", "cyber security researcher", "BTL1", "eJPT", "CPTS", "SOC analyst"],
+    "I secure systems, troubleshoot infrastructure, and actively develop offensive security skills through hands-on labs and simulations.",
+  keywords: ["cybersecurity", "IT support", "penetration testing", "blue team", "security analyst", "cyber security practitioner", "BTL1", "eJPT", "CPTS", "SOC analyst"],
   metadataBase: new URL("https://muntazirmehdi.com"),
   alternates: {
     canonical: "./",
   },
   icons: { icon: "/profile.png" },
   openGraph: {
-    title: "Muntazir Mehdi — Cyber Security Researcher",
+    title: "Muntazir Mehdi — Cyber Security Practitioner",
     description:
-      "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
+      "I secure systems, troubleshoot infrastructure, and actively develop offensive security skills through hands-on labs and simulations.",
     type: "website",
     url: "https://muntazirmehdi.com",
     siteName: "Muntazir Mehdi",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muntazir Mehdi — Cyber Security Researcher",
+    title: "Muntazir Mehdi — Cyber Security Practitioner",
     description:
-      "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
+      "I secure systems, troubleshoot infrastructure, and actively develop offensive security skills through hands-on labs and simulations.",
     images: ["/og.png"],
   },
   robots: { index: true, follow: true },
@@ -47,8 +47,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Muntazir Mehdi",
-    jobTitle: "Cyber Security Researcher",
-    description: "I support, secure, and optimize systems while continuously building my skills in cybersecurity and infrastructure.",
+    jobTitle: "Cyber Security Practitioner",
+    description: "I secure systems, troubleshoot infrastructure, and actively develop offensive security skills through hands-on labs and simulations.",
     url: "https://muntazirmehdi.com",
     sameAs: [
       "https://github.com/muntazirx",
