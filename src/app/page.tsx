@@ -1,10 +1,12 @@
 import Section from "@/components/Section";
-import { aboutParagraphs, experiences, writings } from "@/data/site";
+import { aboutParagraphs, experiences } from "@/data/site";
 import BlogCard from "@/components/BlogCard";
 import Timeline from "@/components/Timeline";
 import CertificationCard from "@/components/CertificationCard";
+import { getAllPosts } from "@/lib/mdx";
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getAllPosts();
   const highlightPhrases = [
     "IT Support Specialist",
     "Microsoft 365",
@@ -24,25 +26,22 @@ export default function Home() {
   ];
 
   const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  
+  // Create a single regex for all phrases to improve performance
+  const pattern = new RegExp(`(${highlightPhrases.map(escapeRegExp).join("|")})`, "gi");
+
   const highlightText = (text: string) => {
-    let parts: (string | React.JSX.Element)[] = [text];
-    for (const phrase of highlightPhrases) {
-      const regex = new RegExp(`(${escapeRegExp(phrase)})`, "gi");
-      parts = parts.flatMap((part, i) => {
-        if (typeof part !== "string") return [part];
-        const split = part.split(regex);
-        return split.map((chunk, idx) =>
-          regex.test(chunk)
-            ? (
-                <span key={`${phrase}-${i}-${idx}`} className="text-heading font-medium">
-                  {chunk}
-                </span>
-              )
-            : chunk
+    const parts = text.split(pattern);
+    return parts.map((part, i) => {
+      if (pattern.test(part)) {
+         return (
+          <span key={i} className="text-heading font-medium">
+            {part}
+          </span>
         );
-      });
-    }
-    return parts;
+      }
+      return part;
+    });
   };
 
   return (
@@ -109,18 +108,18 @@ export default function Home() {
       </Section>
 
       <Section id="blog" title="Blog">
-        {writings.length === 0 ? (
+        {posts.length === 0 ? (
           <p className="text-foreground/70">No posts yet.</p>
         ) : (
           <div className="space-y-4">
-            {writings.map((w) => (
+            {posts.map((w) => (
               <BlogCard
-                key={`${w.title}-${w.year}`}
+                key={w.slug}
                 title={w.title}
                 year={w.year}
                 readingTime={w.readingTime}
                 imageSrc={w.imageSrc}
-                href={w.slug ? `/blog/${w.slug}` : w.href ?? "#"}
+                href={`/blog/${w.slug}`}
               />
             ))}
           </div>

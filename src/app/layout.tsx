@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   keywords: ["cybersecurity", "IT support", "penetration testing", "blue team", "security analyst", "cyber security researcher", "BTL1", "eJPT", "CPTS", "SOC analyst"],
   metadataBase: new URL("https://muntazirmehdi.com"),
   alternates: {
-    canonical: "https://muntazirmehdi.com",
+    canonical: "./",
   },
   icons: { icon: "/profile.png" },
   openGraph: {
