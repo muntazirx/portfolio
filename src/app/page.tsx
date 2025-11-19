@@ -75,7 +75,7 @@ export default async function Home() {
       </Section>
 
       <Section id="certifications" title="Certifications">
-        <div className="flex flex-col gap-1">
+        <div className="space-y-10">
           <CertificationCard
             title="Certified Penetration Testing Specialist (CPTS)"
             issuer="Hack The Box · In progress"

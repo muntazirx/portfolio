@@ -1,60 +1,97 @@
-# Muntazir Mehdi - Personal Portfolio
+# 🛡️ Muntazir Mehdi — Cyber Security Portfolio
 
-This is the source code for my personal portfolio website, built to showcase my skills, experience, and projects in the field of cybersecurity and IT.
+![Next.js](https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![MDX](https://img.shields.io/badge/MDX-1B1F24?style=for-the-badge&logo=markdown&logoColor=white)
 
-The live site is available at [muntazirmehdi.com](https://muntazirmehdi.com).
+A modern, high-performance portfolio website designed for Cyber Security professionals. Built with **Next.js 15**, **Tailwind CSS**, and **TypeScript**, featuring a sleek dark mode interface, MDX-powered blog, and a timeline of professional experience.
 
-## About Me
+[**View Live Site**](https://muntazirmehdi.com)
 
-I’m a Cybersecurity graduate and IT Support Analyst with a passion for building, securing, and experimenting with technology. This portfolio reflects my journey as I grow my skills in infrastructure, security, and automation.
+---
 
-## Features
+## 🚀 Features
 
-- **Responsive Design**: Fully accessible on desktop and mobile devices.
-- **Dynamic Content**: Experience, projects, and writings are managed via structured data in `src/data/site.ts`.
-- **Blog**: Includes a simple, statically-generated blog for sharing technical articles.
-- **SEO Optimized**: Configured for search engine visibility with proper metadata and a sitemap.
+- **🎨 Modern UI/UX**: Clean, dark-themed design with a focus on readability and accessibility.
+- **📝 MDX Blog**: Write articles in Markdown/MDX with syntax highlighting via `rehype-pretty-code`.
+- **💼 Experience Timeline**: A vertical timeline to showcase professional history.
+- **🏆 Certification Showcase**: Dedicated section for certifications (CPTS, BTL1, etc.) with issuer logos.
+- **📱 Fully Responsive**: Optimized for all devices, from large desktops to mobile phones.
+- **⚡ High Performance**: Statically generated pages for lightning-fast load times.
+- **🔍 SEO Optimized**: Built-in metadata, sitemap, and semantic HTML structure.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-This project is built with modern web technologies:
-
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Linting**: [ESLint](https://eslint.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Content**: [MDX](https://mdxjs.com/) with [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- **Syntax Highlighting**: [Shiki](https://shiki.style/) (via rehype-pretty-code)
 
-## Getting Started
+## 📂 Project Structure
 
-To run this project locally, follow these steps:
+```bash
+portfolio/
+├── content/              # MDX blog posts
+│   └── blog/
+├── public/               # Static assets (images, logos)
+├── src/
+│   ├── app/              # Next.js App Router pages
+│   ├── components/       # Reusable UI components
+│   ├── data/             # Static data (experience, skills)
+│   └── lib/              # Utilities (MDX processing, etc.)
+├── tailwind.config.ts    # Tailwind configuration
+└── package.json          # Dependencies and scripts
+```
 
-1.  **Clone the repository:**
+## ⚡ Getting Started
+
+1.  **Clone the repository**
     ```bash
     git clone https://github.com/muntazirx/portfolio.git
     cd portfolio
     ```
 
-2.  **Install dependencies:**
+2.  **Install dependencies**
     ```bash
     npm install
     ```
 
-3.  **Run the development server:**
+3.  **Run the development server**
     ```bash
     npm run dev
     ```
 
-The site will be available at `http://localhost:3000`.
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Available Scripts
+## 📝 Managing Content
 
-- `npm run dev`: Starts the development server.
-- `npm run build`: Creates a production-ready build.
-- `npm run start`: Starts the production server.
-- `npm run lint`: Lints the codebase for errors.
+### Adding a Blog Post
+Create a new `.mdx` file in `content/blog/`. The file must include the following frontmatter:
 
-## Connect with Me
+```yaml
+---
+title: "Your Post Title"
+year: "2025"
+readingTime: "5 min read"
+description: "A short summary of the post."
+imageSrc: "/images/cover.jpg" # Optional
+---
 
-- **GitHub**: [@muntazirx](https://github.com/muntazirx)
-- **LinkedIn**: [in/muntazirx](https://www.linkedin.com/in/muntazirx)
-- **Email**: [info@muntazirmehdi.com](mailto:info@muntazirmehdi.com)
+Your content goes here...
+```
+
+### Updating Experience/Skills
+Edit `src/data/site.ts` to update your bio, experience timeline, and skills list without touching the UI code.
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  Built with ❤️ by <a href="https://github.com/muntazirx">Muntazir Mehdi</a>
+</div>
