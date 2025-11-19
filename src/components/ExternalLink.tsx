@@ -1,3 +1,4 @@
+import { ExternalLink as ExternalLinkIcon } from "lucide-react";
 import type { ReactNode } from "react";
 
 type Props = {
@@ -20,15 +21,7 @@ export default function ExternalLink({ href, children, className, ariaLabel }: P
     >
       {children}
       <span className="sr-only">(opens in new tab)</span>
-      <svg
-        aria-hidden
-        viewBox="0 0 24 24"
-        className="h-[14px] w-[14px] opacity-80"
-        fill="currentColor"
-      >
-        <path d="M14 3h7v7h-2V6.414l-9.293 9.293-1.414-1.414L17.586 5H14V3z"></path>
-        <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7z"></path>
-      </svg>
+      <ExternalLinkIcon className="h-[14px] w-[14px] opacity-80" />
     </a>
   );
 }

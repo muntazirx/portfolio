@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { User, Briefcase, Award, BookOpen } from "lucide-react";
 
 const sections = [
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "certifications", label: "Certifications" },
-  { id: "blog", label: "Blog" },
+  { id: "about", label: "About", icon: User },
+  { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "certifications", label: "Certifications", icon: Award },
+  { id: "blog", label: "Blog", icon: BookOpen },
 ];
 
 export default function SidebarNav() {
@@ -55,38 +56,53 @@ export default function SidebarNav() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    // initialize
-    onScroll();
+    updateActive(); // initial check
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
   }, []);
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Update active state immediately for better responsiveness
+      setActive(id);
+    }
+  };
+
   return (
     <>
       {/* Desktop nav */}
-      <nav aria-label="Section navigation" className="mt-10 hidden lg:block">
-        <ul className="space-y-5 text-[0.78rem] tracking-wider">
-          {sections.map((s) => (
-            <li key={s.id} className="group">
-              <a
-                href={`#${s.id}`}
-                aria-current={active === s.id ? "true" : undefined}
-                className={`uppercase ${
-                  active === s.id ? "text-heading font-semibold" : "text-foreground/60"
-                } relative inline-block`}
-              >
-                {s.label}
-                <span
-                  aria-hidden
-                  className={`absolute left-0 -bottom-1 h-[2px] transition-all duration-300 ${
-                    active === s.id ? "w-full bg-accent" : "w-0 bg-transparent"
+      <nav aria-label="Section navigation" className="mt-16 hidden lg:block">
+        <ul className="w-max">
+          {sections.map((item) => {
+            const isActive = active === item.id;
+            const Icon = item.icon;
+            return (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  onClick={(e) => handleClick(e, item.id)}
+                  className={`group flex items-center py-3 transition-all duration-300 ${
+                    isActive ? "text-heading" : "text-muted hover:text-foreground"
                   }`}
-                />
-              </a>
-            </li>
-          ))}
+                >
+                  <span className={`mr-4 transition-all duration-300 ${
+                    isActive ? "w-8 bg-heading" : "w-4 bg-muted group-hover:w-6 group-hover:bg-foreground"
+                  } h-[1px]`} />
+                  
+                  <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                    <Icon className={`h-3.5 w-3.5 transition-colors ${isActive ? "text-accent" : "text-muted group-hover:text-foreground"}`} />
+                    {item.label}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 

@@ -75,7 +75,7 @@ export default async function Home() {
       </Section>
 
       <Section id="certifications" title="Certifications">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-1">
           <CertificationCard
             title="Certified Penetration Testing Specialist (CPTS)"
             issuer="Hack The Box · In progress"
@@ -111,13 +111,14 @@ export default async function Home() {
         {posts.length === 0 ? (
           <p className="text-foreground/70">No posts yet.</p>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-10">
             {posts.map((w) => (
               <BlogCard
                 key={w.slug}
                 title={w.title}
                 year={w.year}
                 readingTime={w.readingTime}
+                description={w.description}
                 imageSrc={w.imageSrc}
                 href={`/blog/${w.slug}`}
               />

@@ -58,8 +58,7 @@ export default function BlogToc() {
   if (!isMounted || !hasItems) return null;
 
   return (
-    <nav aria-label="On this page" className="sticky top-24">
-      <div className="text-xs uppercase tracking-wider text-muted mb-4">On this page</div>
+    <nav aria-label="Table of contents">
       <ul className="space-y-3 text-[0.78rem] tracking-wider">
         {items.map((it) => (
           <li key={it.id} className={`group ${it.level === 3 ? "pl-4" : ""}`}>

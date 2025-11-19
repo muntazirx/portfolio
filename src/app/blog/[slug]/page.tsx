@@ -1,9 +1,12 @@
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import BlogToc from "@/components/BlogToc";
 import { siteMeta } from "@/data/site";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
+import { ArrowLeft, Share2, Linkedin, Twitter } from "lucide-react";
+import Link from "next/link";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -58,37 +61,25 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Params) {
+export default async function BlogPost({ params }: Params) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) notFound();
+
+  if (!post) {
+    notFound();
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    description: post.description ?? post.title,
-    image: post.imageSrc ? `https://muntazirmehdi.com${post.imageSrc}` : undefined,
     datePublished: `${post.year}-01-01`,
-    dateModified: `${post.year}-01-01`,
     author: {
       "@type": "Person",
       name: siteMeta.name,
-      url: "https://muntazirmehdi.com",
-      sameAs: [
-        "https://github.com/muntazirx",
-        "https://www.linkedin.com/in/muntazirx",
-      ],
     },
-    publisher: {
-      "@type": "Person",
-      name: siteMeta.name,
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://muntazirmehdi.com/blog/${slug}`,
-    },
-    keywords: post.keywords ? post.keywords.join(", ") : undefined,
+    description: post.description,
+    image: post.imageSrc ? `https://muntazirmehdi.com${post.imageSrc}` : undefined,
   };
 
   const breadcrumbJsonLd = {
@@ -128,9 +119,50 @@ export default async function BlogPostPage({ params }: Params) {
       />
       <div className="px-6 sm:px-8 py-12 max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-[260px_76ch] lg:justify-center gap-10">
       <aside className="hidden lg:block">
-        <Suspense fallback={null}>
-          <BlogToc />
-        </Suspense>
+        <div className="sticky top-24 space-y-8">
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors group"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+            Back to Home
+          </Link>
+
+          <div>
+            <div className="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-4">
+              On this page
+            </div>
+            <Suspense fallback={null}>
+              <BlogToc />
+            </Suspense>
+          </div>
+
+          <div className="pt-8 border-t border-foreground/10">
+            <div className="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-4">
+              Share
+            </div>
+            <div className="flex gap-4">
+              <a 
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://muntazirmehdi.com/blog/${slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-[#0077b5] transition-colors"
+                aria-label="Share on LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a 
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://muntazirmehdi.com/blog/${slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-[#1DA1F2] transition-colors"
+                aria-label="Share on Twitter"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+        </div>
       </aside>
     <article className="max-w-none">
       <header>

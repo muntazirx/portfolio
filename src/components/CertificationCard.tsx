@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { ChevronRight } from "lucide-react";
+
 type Props = {
   title: string;
   issuer: string;
@@ -8,7 +11,7 @@ type Props = {
 };
 
 function Icon({ type }: { type: NonNullable<Props["icon"]> }) {
-  const common = "h-7 w-7 text-heading";
+  const common = "h-6 w-6 text-heading";
   if (type === "btl1") {
     return (
       <svg viewBox="0 0 24 24" className={common} fill="currentColor" aria-hidden>
@@ -31,31 +34,32 @@ function Icon({ type }: { type: NonNullable<Props["icon"]> }) {
   );
 }
 
-import Image from "next/image";
-
 export default function CertificationCard({ title, issuer, href, icon, logoSrc, logoAlt }: Props) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="hover-panel block focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-xl"
+      className="group flex items-center gap-4 p-3 -mx-3 rounded-lg hover:bg-foreground/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
     >
-      <div className="card rounded-xl p-4 transition-all duration-300 min-h-[100px]">
-          <div className="flex items-center gap-4">
-          <div className="shrink-0 h-7 w-7 flex items-center justify-center">
-            {logoSrc ? (
-              <Image src={logoSrc} alt={logoAlt ?? `${title} logo`} width={28} height={28} className="h-7 w-7 object-contain" />
-            ) : icon ? (
-              <Icon type={icon} />
-            ) : null}
-          </div>
-          <div>
-            <div className="font-semibold text-heading">{title}</div>
-            <div className="text-foreground/70 text-sm">{issuer}</div>
-          </div>
+      <div className="shrink-0 h-10 w-10 flex items-center justify-center rounded-md bg-foreground/5 border border-foreground/10 group-hover:border-accent/20 transition-colors">
+        {logoSrc ? (
+          <Image src={logoSrc} alt={logoAlt ?? `${title} logo`} width={24} height={24} className="h-6 w-6 object-contain" />
+        ) : icon ? (
+          <Icon type={icon} />
+        ) : null}
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <div className="font-medium text-heading truncate group-hover:text-accent transition-colors">
+          {title}
+        </div>
+        <div className="text-sm text-muted truncate">
+          {issuer}
         </div>
       </div>
+
+      <ChevronRight className="h-4 w-4 text-muted opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
     </a>
   );
 }
