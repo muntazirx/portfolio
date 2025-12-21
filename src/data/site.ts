@@ -61,7 +61,7 @@ export const experiences: ExperienceItem[] = [
   {
     company: "GVS Industrial Company · Dammam, Saudi Arabia",
     role: "IT Support Analyst",
-    start: "Jun 2024",
+    start: "Jun 2025",
     end: "Present",
     summary:
       "Delivered first‑line support, fixed common hardware/software issues, set up new PCs, installed and updated applications, ensured systems were secure, and handled account management (create/disable/reset passwords). Logged support requests and escalated complex problems to senior IT staff.",
