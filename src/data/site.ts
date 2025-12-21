@@ -53,8 +53,9 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "Hello! I’m Muntazir, a Cybersecurity graduate currently working as an IT Support Analyst. I am building my career path toward Offensive Security, driven by the belief that deep knowledge of infrastructure and defense is the prerequisite for effective exploitation.",
-  "In my current role, I am gaining hands-on experience with enterprise systems and troubleshooting. I complement this operational foundation by actively training for the CPTS certification and conducting security research in self-hosted environments, where I simulate attack vectors and test advanced methodologies.",
+  "I am a Cyber Security graduate and IT Support Analyst with a simple philosophy: you can't effectively break what you don't understand.",
+  "I use my operational experience in IT Support to master the infrastructure I plan to exploit. While I secure systems by day, I spend my nights in self-hosted labs, training for the CPTS and refining my Red Team methodology.",
+  "Current Focus: Offensive Security, Linux Infrastructure, and Threat Hunting.",
 ];
 
 export const experiences: ExperienceItem[] = [
@@ -65,7 +66,7 @@ export const experiences: ExperienceItem[] = [
     end: "Present",
     summary:
       "Delivered first‑line support, fixed common hardware/software issues, set up new PCs, installed and updated applications, ensured systems were secure, and handled account management (create/disable/reset passwords). Logged support requests and escalated complex problems to senior IT staff.",
-    skills: ["Windows", "Endpoint Security", "Account Management", "Helpdesk", "Troubleshooting"],
+    skills: ["Active Directory", "Windows Security", "Endpoint Protection", "Incident Triage", "Hardware Configuration"],
   },
   {
     company: "Asia Pacific University of Technology & Innovation · Kuala Lumpur, Malaysia",
@@ -106,6 +107,6 @@ export const writings: WritingItem[] = [
 ];
 
 // Resume download link
-export const resumeUrl = "/Syed%20Muntazir%20Mehdi%20CV.pdf"; // Public path must be URL-encoded
+export const resumeUrl = "/Muntazir-Mehdi-CV.pdf";
 
 

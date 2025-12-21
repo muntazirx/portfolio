@@ -57,7 +57,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}> 
         <script
           type="application/ld+json"
