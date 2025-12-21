@@ -23,7 +23,7 @@ export default function Sidebar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 download="Syed Muntazir Mehdi CV.pdf"
-                className="inline-flex items-center gap-2 text-sm text-foreground/90 border border-foreground/20 bg-transparent px-4 py-2 rounded-lg hover:bg-foreground/5 hover:border-accent/30 hover:text-accent transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 group"
+                className="inline-flex items-center gap-2 text-sm text-foreground/90 border border-accent bg-transparent px-4 py-2 rounded-lg hover:bg-accent/10 hover:text-accent transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 group"
               >
                 <Download className="h-4 w-4 transition-transform group-hover:translate-y-[-2px]" />
                 Download Resume

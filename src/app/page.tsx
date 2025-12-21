@@ -35,8 +35,16 @@ export default async function Home() {
     const parts = text.split(pattern);
     return parts.map((part, i) => {
       if (pattern.test(part)) {
-         return (
-          <span key={i} className="text-heading font-medium">
+        const isOffensiveSecurity = part.toLowerCase() === "offensive security";
+        return (
+          <span
+            key={i}
+            className={
+              isOffensiveSecurity
+                ? "text-accent font-bold"
+                : "text-heading font-medium"
+            }
+          >
             {part}
           </span>
         );

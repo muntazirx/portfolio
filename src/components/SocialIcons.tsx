@@ -13,14 +13,14 @@ const icons: Record<string, ReactNode> = {
 
 export default function SocialIcons() {
   return (
-    <ul className="flex items-center gap-4 text-muted">
+    <ul className="flex items-center gap-4">
       {socialLinks.map((link) => (
         <li key={link.name}>
           <a
             href={link.href}
             target={link.name === "Email" ? undefined : "_blank"}
             rel={link.name === "Email" ? undefined : "noopener noreferrer"}
-            className={`inline-flex ${ICON_BUTTON_SIZE} items-center justify-center rounded hover:text-accent hover:-translate-y-1 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40`}
+            className={`inline-flex ${ICON_BUTTON_SIZE} items-center justify-center rounded text-muted hover:text-accent hover:-translate-y-1 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40`}
             aria-label={link.name}
           >
             {icons[link.name] ?? <span className="h-1.5 w-1.5 rounded-full bg-current" />}

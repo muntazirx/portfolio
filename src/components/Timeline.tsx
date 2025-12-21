@@ -55,7 +55,7 @@ export default function Timeline({ items }: Props) {
               {item.skills.map((s) => (
                 <span
                   key={s}
-                  className="text-xs px-2.5 py-1 rounded-md bg-foreground/5 text-foreground/70 border border-foreground/10 group-hover:border-accent/20 group-hover:text-accent transition-colors"
+                  className="text-xs px-2.5 py-1 rounded-md bg-accent/10 text-accent transition-colors"
                 >
                   {s}
                 </span>
