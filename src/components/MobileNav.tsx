@@ -101,7 +101,14 @@ export default function MobileNav() {
         <div className="flex items-center justify-between px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full overflow-hidden border border-foreground/15">
-              <Image src="/profile.png" alt="Profile photo" width={32} height={32} className="h-8 w-8 object-cover" />
+              <Image 
+                src="/profile.png" 
+                alt="Profile photo" 
+                width={32} 
+                height={32} 
+                className="h-8 w-8 object-cover" 
+                suppressHydrationWarning
+              />
             </div>
             <div>
               <div className="text-sm font-semibold text-heading">{siteMeta.name}</div>
