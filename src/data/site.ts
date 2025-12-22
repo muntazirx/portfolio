@@ -55,7 +55,7 @@ export const socialLinks: SocialLink[] = [
 export const aboutParagraphs: string[] = [
   "I am a Cyber Security graduate and IT Support Analyst with a simple philosophy: you can't effectively break what you don't understand.",
   "I use my operational experience in IT Support to master the infrastructure I plan to exploit. While I secure systems by day, I spend my nights in self-hosted labs, training for the CPTS and refining my Red Team methodology.",
-  "Current Focus: Offensive Security, Linux Infrastructure, and Threat Hunting.",
+  "Current Focus: Offensive Security, Linux Infrastructure, and Malware Development.",
 ];
 
 export const experiences: ExperienceItem[] = [
