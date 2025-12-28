@@ -195,16 +195,16 @@ async function PrevNext({ slug }: { slug: string }) {
     <>
       <div>
         {prev && (
-          <a href={`/blog/${prev.slug}`} className="unstyled text-muted hover:underline underline-offset-4">
+          <Link href={`/blog/${prev.slug}`} className="unstyled text-muted hover:underline underline-offset-4">
             ← {prev.title}
-          </a>
+          </Link>
         )}
       </div>
       <div>
         {next && (
-          <a href={`/blog/${next.slug}`} className="unstyled text-muted hover:underline underline-offset-4">
+          <Link href={`/blog/${next.slug}`} className="unstyled text-muted hover:underline underline-offset-4">
             {next.title} →
-          </a>
+          </Link>
         )}
       </div>
     </>

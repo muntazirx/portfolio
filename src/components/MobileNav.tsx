@@ -168,7 +168,7 @@ export default function MobileNav() {
                     href={resumeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    download="Syed Muntazir Mehdi CV.pdf"
+                    download="Muntazir-Mehdi-CV.pdf"
                     onClick={() => setIsOpen(false)}
                     className="block w-full text-left text-lg font-medium text-foreground/70 hover:text-heading transition-colors"
                   >

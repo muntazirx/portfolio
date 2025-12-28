@@ -13,32 +13,6 @@ export type ExperienceItem = {
   href?: string;
 };
 
-export type ProjectItem = {
-  title: string;
-  summary: string;
-  tech: string[];
-  href?: string;
-  imageAlt?: string;
-};
-
-export type CertificationItem = {
-  name: string;
-  issuer?: string;
-  year?: string;
-  href?: string;
-};
-
-export type WritingItem = {
-  title: string;
-  description?: string; // SEO description for blog posts
-  keywords?: string[]; // SEO keywords for the post
-  year: string;
-  slug?: string; // internal blog slug (e.g. "/blog/my-post")
-  imageSrc?: string; // thumbnail path in public
-  readingTime?: string; // e.g., "5 min read"
-  href?: string; // external link fallback
-};
-
 export const siteMeta = {
   name: "Muntazir Mehdi",
   title: "Cyber Security Practitioner",
@@ -85,24 +59,6 @@ export const experiences: ExperienceItem[] = [
     summary:
       "Deployed and supported lab PCs, imaged devices, configured standard accounts, troubleshot hardware and software issues, and created documentation and user guides for the APU Knowledgebase.",
     skills: ["Imaging", "Account Configuration", "Troubleshooting", "Documentation"],
-  },
-];
-
-export const certifications: CertificationItem[] = [
-  { name: "eJPT" },
-  { name: "BTL1" },
-  { name: "RH124" },
-];
-
-export const writings: WritingItem[] = [
-  {
-    title: "How I Scored 95% in the Blue Team Level 1 (BTL1) Exam on My Second Attempt",
-    description: "My journey from failing the BTL1 exam to scoring 95% on my second attempt. Learn about my preparation strategy, key mistakes, and tips for success.",
-    keywords: ["BTL1", "Blue Team Level 1", "cybersecurity certification", "Security Blue Team", "SOC analyst", "incident response", "Splunk", "Autopsy", "Wireshark", "penetration testing", "cybersecurity exam"],
-    year: "2025",
-    slug: "btl1-95-second-attempt",
-    imageSrc: "/logos/btl1.png",
-    readingTime: "5 min read",
   },
 ];
 
