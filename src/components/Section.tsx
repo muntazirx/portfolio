@@ -27,5 +27,3 @@ export default function Section({ id, title, children, withDivider = false, hide
     </section>
   );
 }
-
-

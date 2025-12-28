@@ -21,7 +21,7 @@ export async function GET() {
         <title><![CDATA[${post.title}]]></title>
         <link>${siteUrl}/blog/${post.slug}</link>
         <guid isPermaLink="true">${siteUrl}/blog/${post.slug}</guid>
-        <pubDate>${new Date(post.year).toUTCString()}</pubDate>
+        <pubDate>${new Date(`${post.year}-01-01T00:00:00Z`).toUTCString()}</pubDate>
         <description><![CDATA[${post.description || post.title}]]></description>
       </item>`;
       })

@@ -64,5 +64,3 @@ export const experiences: ExperienceItem[] = [
 
 // Resume download link
 export const resumeUrl = "/Muntazir-Mehdi-CV.pdf";
-
-

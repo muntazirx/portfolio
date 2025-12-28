@@ -105,25 +105,6 @@ export default function SidebarNav() {
           })}
         </ul>
       </nav>
-
-      {/* Mobile nav */}
-      <nav aria-label="Section navigation" className="mt-8 lg:hidden">
-        <ul className="flex flex-wrap gap-4 text-xs tracking-wider">
-          {sections.map((s) => (
-            <li key={s.id}>
-              <a
-                href={`#${s.id}`}
-                aria-current={active === s.id ? "true" : undefined}
-                className={`${active === s.id ? "text-heading font-semibold" : "text-foreground/60"} inline-block`}
-              >
-                {s.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </>
   );
 }
-
-

@@ -1,17 +1,8 @@
 import { ExternalLink } from "lucide-react";
-
-type Item = {
-  company: string;
-  role: string;
-  start: string;
-  end: string;
-  summary: string;
-  skills: string[];
-  href?: string; // optional external link for the role/company
-};
+import type { ExperienceItem } from "@/data/site";
 
 type Props = {
-  items: Item[];
+  items: ExperienceItem[];
 };
 
 export default function Timeline({ items }: Props) {
@@ -67,5 +58,3 @@ export default function Timeline({ items }: Props) {
     </div>
   );
 }
-
-

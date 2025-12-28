@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 type Props = {
@@ -34,10 +35,10 @@ export default function BlogCard({ title, year, readingTime, description, imageS
       {/* Content Column */}
       <div className="relative flex flex-col">
         <h3 className="text-heading font-medium text-lg tracking-tight mb-1">
-          <a href={href} className="group/link inline-flex items-baseline gap-1 hover:text-accent transition-colors">
+          <Link href={href} className="unstyled group/link inline-flex items-baseline gap-1 hover:text-accent transition-colors">
             {title}
             <ArrowUpRight className="h-3.5 w-3.5 translate-y-0.5 opacity-0 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all" />
-          </a>
+          </Link>
         </h3>
         
         <div className="text-muted text-xs mb-3 font-mono flex items-center gap-2">
@@ -59,5 +60,3 @@ export default function BlogCard({ title, year, readingTime, description, imageS
     </div>
   );
 }
-
-
