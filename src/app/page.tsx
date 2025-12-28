@@ -9,21 +9,14 @@ export default async function Home() {
   const posts = await getAllPosts();
   const highlightPhrases = [
     "IT Support Analyst",
-    "Offensive Security",
-    "Microsoft 365",
+    "Cyber Security",
     "Active Directory",
-    "Azure AD",
-    "Windows",
-    "Linux",
-    "Intune",
-    "VPN",
-    "Wi‑Fi",
-    "MFA",
-    "EDR",
+    "home lab",
     "CPTS",
-    "Hack The Box",
-    "TryHackMe",
-    "self-hosted environments",
+    "self-host",
+    "Offensive Security",
+    "Linux internals",
+    "malware development",
   ];
 
   const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -35,19 +28,19 @@ export default async function Home() {
     const parts = text.split(pattern);
     return parts.map((part, i) => {
       if (pattern.test(part)) {
-        const isOffensiveSecurity = part.toLowerCase() === "offensive security";
-        return (
-          <span
-            key={i}
-            className={
-              isOffensiveSecurity
-                ? "text-accent font-bold"
-                : "text-heading font-medium"
-            }
-          >
-            {part}
-          </span>
-        );
+const isOffensiveSecurity = part.toLowerCase() === "offensive security";
+            return (
+              <span
+                key={i}
+                className={
+                  isOffensiveSecurity
+                    ? "text-accent font-bold accent-glow"
+                    : "text-heading font-medium"
+                }
+              >
+                {part}
+              </span>
+            );
       }
       return part;
     });

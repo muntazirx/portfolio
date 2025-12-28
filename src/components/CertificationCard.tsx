@@ -62,7 +62,14 @@ export default function CertificationCard({ title, issuer, href, icon, logoSrc, 
           </a>
         </h3>
         <div className="text-sm text-muted">
-          {issuer}
+          {issuer.includes("In progress") ? (
+            <>
+              {issuer.replace(" · In progress", "")}
+              <span className="ml-1 text-accent-secondary font-medium"> · In progress</span>
+            </>
+          ) : (
+            issuer
+          )}
         </div>
       </div>
     </div>

@@ -111,7 +111,7 @@ export default function MobileNav() {
               />
             </div>
             <div>
-              <div className="text-sm font-semibold text-heading">{siteMeta.name}</div>
+              <div className="text-sm font-semibold gradient-text">{siteMeta.name}</div>
               <div className="text-xs text-muted">{siteMeta.title}</div>
             </div>
           </div>

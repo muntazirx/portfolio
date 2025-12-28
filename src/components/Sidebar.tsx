@@ -11,7 +11,7 @@ export default function Sidebar() {
       <div className="h-full pr-12 flex items-stretch justify-end">
         <div className="max-w-md w-full flex flex-col justify-between pb-12">
           <div className="mt-24">
-            <h1 className="text-[2.25rem] xl:text-[2.75rem] font-semibold tracking-tight" style={{letterSpacing:"-0.02em"}}>
+            <h1 className="text-[2.25rem] xl:text-[2.75rem] font-semibold tracking-tight gradient-text" style={{letterSpacing:"-0.02em"}}>
               {siteMeta.name}
             </h1>
             <p className="mt-2 text-muted">{siteMeta.title}</p>

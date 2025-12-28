@@ -17,7 +17,7 @@ export const siteMeta = {
   name: "Muntazir Mehdi",
   title: "Cyber Security Practitioner",
   tagline:
-    "I secure systems, troubleshoot infrastructure, and actively develop offensive security skills through hands-on labs and simulations.",
+    "I build to understand. I break to learn.",
 };
 
 export const socialLinks: SocialLink[] = [
@@ -27,9 +27,9 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "I am a Cyber Security graduate and IT Support Analyst with a simple philosophy: you can't effectively break what you don't understand.",
-  "I use my operational experience in IT Support to master the infrastructure I plan to exploit. While I secure systems by day, I spend my nights in self-hosted labs, training for the CPTS and refining my Red Team methodology.",
-  "Current Focus: Offensive Security, Linux Infrastructure, and Malware Development.",
+  "I'm an IT Support Analyst with a Cyber Security degree. Right now, I spend my days fixing endpoints, managing Active Directory, and keeping systems running. But that's only half the story.",
+  "After hours, I'm in my home lab—breaking into machines, studying for CPTS, and building out attack scenarios. I self-host everything I can because there's no better way to learn than by running your own infrastructure and then trying to compromise it.",
+  "Currently digging into: Offensive Security, Linux internals, and malware development.",
 ];
 
 export const experiences: ExperienceItem[] = [
