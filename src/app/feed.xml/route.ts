@@ -1,7 +1,7 @@
 import { getAllPosts } from "@/lib/mdx";
 import { siteMeta } from "@/data/site";
 
-export const runtime = "edge";
+export const dynamic = "force-static";
 
 export async function GET() {
   const posts = await getAllPosts();
