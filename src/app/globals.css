@@ -9,20 +9,20 @@
   --light-slate: #cbd5e1;
   --lightest-slate: #e2e8f0;
   --white: #f1f5f9;
-  
+
   /* Primary Accent: Mint/Seafoam - stands out from typical cyan */
   --accent-primary: #5eead4;
   /* Secondary Accent: Warm amber for special callouts */
   --accent-warm: #fbbf24;
 
-  /* Light Mode Colors */
-  --background: #fafafa;
-  --foreground: #334155;
-  --heading: #0f172a;
-  --muted: #475569;
-  --accent: #14b8a6; /* Teal-500 - richer than before */
-  --accent-secondary: #f59e0b; /* Amber-500 */
-  --border: color-mix(in oklab, var(--foreground) 10%, transparent);
+  /* Dark-only palette */
+  --background: var(--navy);
+  --foreground: var(--slate);
+  --heading: var(--lightest-slate);
+  --muted: var(--light-slate);
+  --accent: var(--accent-primary);
+  --accent-secondary: var(--accent-warm);
+  --border: color-mix(in oklab, var(--foreground) 14%, transparent);
 }
 
 @theme inline {
@@ -33,19 +33,6 @@
   --color-heading: var(--heading);
   --color-muted: var(--muted);
   --font-sans: var(--font-inter);
-}
-
-/* Dark Mode (Preferred) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: var(--navy);
-    --foreground: var(--slate);
-    --heading: var(--lightest-slate);
-    --muted: var(--light-slate);
-    --accent: var(--accent-primary);
-    --accent-secondary: var(--accent-warm);
-    --border: color-mix(in oklab, var(--foreground) 14%, transparent);
-  }
 }
 
 body {
@@ -126,19 +113,12 @@ body::after {
 /* No responsive overlays: solid color across all breakpoints */
 
 /* Glass panel used for timeline cards */
-.panel {
-  background: color-mix(in oklab, var(--foreground) 5%, transparent);
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  backdrop-filter: blur(6px);
-}
 
-@media (prefers-color-scheme: dark) {
-  .panel {
-    background: linear-gradient(145deg, rgba(23,40,72,0.55), rgba(17,34,64,0.5));
-    border: 1px solid color-mix(in oklab, var(--lightest-slate) 10%, transparent);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(100,255,218,0.06);
-  }
+/* Panel already uses dark palette — no media query needed */
+.panel {
+  background: linear-gradient(145deg, rgba(23,40,72,0.55), rgba(17,34,64,0.5));
+  border: 1px solid color-mix(in oklab, var(--lightest-slate) 10%, transparent);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(100,255,218,0.06);
 }
 
 /* Hover-activated panel for timeline items */
@@ -148,21 +128,14 @@ body::after {
   box-shadow: none;
 }
 
+
+
+/* Hover card already uses dark palette — no media query needed */
 .hover-panel:hover .card,
 .hover-panel:focus-within .card {
-  background: color-mix(in oklab, var(--foreground) 5%, transparent);
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  backdrop-filter: blur(6px);
-}
-
-@media (prefers-color-scheme: dark) {
-  .hover-panel:hover .card,
-  .hover-panel:focus-within .card {
-    background: linear-gradient(145deg, rgba(23,40,72,0.55), rgba(17,34,64,0.5));
-    border: 1px solid color-mix(in oklab, var(--lightest-slate) 10%, transparent);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(100,255,218,0.06);
-  }
+  background: linear-gradient(145deg, rgba(23,40,72,0.55), rgba(17,34,64,0.5));
+  border: 1px solid color-mix(in oklab, var(--lightest-slate) 10%, transparent);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(100,255,218,0.06);
 }
 
 /* Comfortable reading rhythm for blog articles */
