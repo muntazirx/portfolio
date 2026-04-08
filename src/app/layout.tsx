@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import AppShell from "@/components/AppShell";
 import "./globals.css";
 
@@ -72,6 +73,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <AppShell>{children}</AppShell>
+        <Analytics />
       </body>
     </html>
   );
