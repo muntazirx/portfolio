@@ -8,15 +8,11 @@ import { getAllPosts } from "@/lib/mdx";
 export default async function Home() {
   const posts = await getAllPosts();
   const highlightPhrases = [
-    "IT Support Analyst",
-    "Cyber Security",
-    "Active Directory",
-    "home lab",
     "CPTS",
-    "self-host",
-    "Offensive Security",
-    "Linux internals",
-    "malware development",
+    "Hack The Box",
+    "AV and EDR evasion",
+    "CRTP",
+    "C/C++",
   ];
 
   const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -28,12 +24,12 @@ export default async function Home() {
     const parts = text.split(pattern);
     return parts.map((part, i) => {
       if (pattern.test(part)) {
-const isOffensiveSecurity = part.toLowerCase() === "offensive security";
+        const isEvasion = part.toLowerCase() === "av and edr evasion";
             return (
               <span
                 key={i}
                 className={
-                  isOffensiveSecurity
+                  isEvasion
                     ? "text-accent font-bold accent-glow"
                     : "text-heading font-medium"
                 }
@@ -48,7 +44,7 @@ const isOffensiveSecurity = part.toLowerCase() === "offensive security";
 
   return (
     <div id="home" className="pt-10 lg:pt-20">
-      <h1 className="sr-only">Muntazir Mehdi — Cyber Security Practitioner</h1>
+      <h1 className="sr-only">Muntazir Mehdi — Security Researcher</h1>
 
       <Section id="about" title="About" hideTitle>
         <div className="space-y-4">
@@ -60,11 +56,11 @@ const isOffensiveSecurity = part.toLowerCase() === "offensive security";
           <div className="text-muted text-sm mb-2">Here are a few technologies I’ve been working with recently:</div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 text-sm text-foreground/90">
             {[
-              "Windows & Linux administration",
-              "Active Directory & Microsoft 365",
-              "Docker & virtualization",
-              "Network configuration & troubleshooting",
-              "Scripting for repeatable fixes (PowerShell/Bash)",
+              "Active Directory attacks & enumeration",
+              "Windows internals & AV/EDR evasion",
+              "Penetration testing (web & infrastructure)",
+              "Malware development & analysis",
+              "PowerShell, C/C++, & Python",
             ].map((t) => (
               <li key={t} className="before:content-['▹'] before:text-accent before:mr-2">{t}</li>
             ))}
@@ -80,10 +76,17 @@ const isOffensiveSecurity = part.toLowerCase() === "offensive security";
         <div className="space-y-10">
           <CertificationCard
             title="Certified Penetration Testing Specialist (CPTS)"
-            issuer="Hack The Box · In progress"
+            issuer="Hack The Box"
             href="https://academy.hackthebox.com/preview/certifications/htb-certified-penetration-testing-specialist"
             logoSrc="/logos/hackthebox.jpeg"
             logoAlt="CPTS"
+          />
+          <CertificationCard
+            title="Certified Red Team Professional (CRTP)"
+            issuer="Altered Security · In progress"
+            href="https://www.alteredsecurity.com/adlab"
+            logoSrc="/logos/crtp.png"
+            logoAlt="CRTP"
           />
           <CertificationCard
             title="Blue Team Level 1 (BTL1)"

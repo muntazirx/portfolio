@@ -4,14 +4,14 @@ import { getAllPosts } from "@/lib/mdx";
 
 export const metadata: Metadata = {
   title: "Blog | Muntazir Mehdi",
-  description: "Writing and notes by Muntazir Mehdi on cybersecurity, certifications, and IT infrastructure.",
-  keywords: ["cybersecurity blog", "blue team", "security certification", "BTL1", "cybersecurity tips"],
+  description: "Writing and notes by Muntazir Mehdi on offensive security, red teaming, certifications, and malware research.",
+  keywords: ["cybersecurity blog", "offensive security", "red team", "CPTS", "CRTP", "penetration testing", "malware research", "security certifications"],
   alternates: {
     canonical: "https://muntazirmehdi.com/blog",
   },
   openGraph: {
     title: "Blog | Muntazir Mehdi",
-    description: "Writing and notes by Muntazir Mehdi on cybersecurity, certifications, and IT infrastructure.",
+    description: "Writing and notes by Muntazir Mehdi on offensive security, red teaming, certifications, and malware research.",
     type: "website",
     url: "https://muntazirmehdi.com/blog",
   },

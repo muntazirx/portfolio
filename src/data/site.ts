@@ -15,21 +15,22 @@ export type ExperienceItem = {
 
 export const siteMeta = {
   name: "Muntazir Mehdi",
-  title: "Cyber Security Practitioner",
+  title: "Security Researcher",
   tagline:
-    "I build to understand. I break to learn.",
+    "I break things to understand how they work.",
 };
 
 export const socialLinks: SocialLink[] = [
   { name: "GitHub", href: "https://github.com/muntazirx" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/muntazirx" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/mntzr" },
+  { name: "HackTheBox", href: "https://app.hackthebox.com/users/1843606" },
   { name: "Email", href: "mailto:info@muntazirmehdi.com" },
 ];
 
 export const aboutParagraphs: string[] = [
-  "I'm an IT Support Analyst with a Cyber Security degree. Right now, I spend my days fixing endpoints, managing Active Directory, and keeping systems running. But that's only half the story.",
-  "After hours, I'm in my home lab—breaking into machines, studying for CPTS, and building out attack scenarios. I self-host everything I can because there's no better way to learn than by running your own infrastructure and then trying to compromise it.",
-  "Currently digging into: Offensive Security, Linux internals, and malware development.",
+  "I'm an IT Support Analyst with a Cyber Security degree and a recently earned CPTS certification. By day, I manage endpoints, Active Directory, and keep systems running — but my real focus is on the offensive side.",
+  "Outside of work, I study how Windows works under the hood, practice attack chains on platforms like Hack The Box, and research how malware operates at a low level. I'm drawn to the intersection of system internals and offensive tradecraft — especially AV and EDR evasion.",
+  "Currently studying for: CRTP (Certified Red Team Professional) while digging deeper into Windows internals, malware development, and picking up C/C++ along the way.",
 ];
 
 export const experiences: ExperienceItem[] = [

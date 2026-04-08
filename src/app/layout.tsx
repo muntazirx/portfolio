@@ -10,19 +10,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Muntazir Mehdi — Cyber Security Practitioner",
+  title: "Muntazir Mehdi — Security Researcher",
   description:
-    "I build to understand. I break to learn. IT Support Analyst exploring offensive security through home labs, CPTS training, and hands-on experimentation.",
-  keywords: ["cybersecurity", "IT support", "penetration testing", "blue team", "security analyst", "cyber security practitioner", "BTL1", "eJPT", "CPTS", "SOC analyst", "offensive security", "home lab"],
+    "CPTS-certified Security Researcher focused on red teaming, Windows internals, AV/EDR evasion, and malware research.",
+  keywords: ["cybersecurity", "security researcher", "penetration testing", "red team", "CPTS", "CRTP", "BTL1", "eJPT", "offensive security", "Windows internals", "malware development", "AV evasion", "EDR evasion", "Hack The Box"],
   metadataBase: new URL("https://muntazirmehdi.com"),
   alternates: {
     canonical: "./",
   },
   icons: { icon: "/profile.png" },
   openGraph: {
-    title: "Muntazir Mehdi — Cyber Security Practitioner",
+    title: "Muntazir Mehdi — Security Researcher",
     description:
-      "I build to understand. I break to learn. IT Support Analyst exploring offensive security through home labs and hands-on experimentation.",
+      "CPTS-certified Security Researcher focused on red teaming, Windows internals, and malware research.",
     type: "website",
     url: "https://muntazirmehdi.com",
     siteName: "Muntazir Mehdi",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Muntazir Mehdi — Cyber Security Practitioner",
+    title: "Muntazir Mehdi — Security Researcher",
     description:
-      "I build to understand. I break to learn. IT Support Analyst exploring offensive security through home labs and hands-on experimentation.",
+      "CPTS-certified Security Researcher focused on red teaming, Windows internals, and malware research.",
     images: ["/profile.png"],
   },
   robots: { index: true, follow: true },
@@ -47,8 +47,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Muntazir Mehdi",
-    jobTitle: "Cyber Security Practitioner",
-    description: "I build to understand. I break to learn. IT Support Analyst exploring offensive security through home labs and hands-on experimentation.",
+    jobTitle: "Security Researcher",
+    description: "CPTS-certified Security Researcher focused on red teaming, Windows internals, and malware research.",
     url: "https://muntazirmehdi.com",
     sameAs: [
       "https://github.com/muntazirx",
