@@ -77,7 +77,7 @@ export default async function Home() {
           <CertificationCard
             title="Certified Penetration Testing Specialist (CPTS)"
             issuer="Hack The Box"
-            href="https://academy.hackthebox.com/preview/certifications/htb-certified-penetration-testing-specialist"
+            href="https://www.credly.com/badges/b77c41bd-d54f-41af-ba0e-48692865e7ff/public_url"
             logoSrc="/logos/hackthebox.jpeg"
             logoAlt="CPTS"
           />

@@ -28,9 +28,9 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "I'm an IT Support Analyst with a Cyber Security degree and a recently earned CPTS certification. By day, I manage endpoints, Active Directory, and keep systems running — but my real focus is on the offensive side.",
-  "Outside of work, I study how Windows works under the hood, practice attack chains on platforms like Hack The Box, and research how malware operates at a low level. I'm drawn to the intersection of system internals and offensive tradecraft — especially AV and EDR evasion.",
-  "Currently studying for: CRTP (Certified Red Team Professional) while digging deeper into Windows internals, malware development, and picking up C/C++ along the way.",
+  "I'm a Cyber Security graduate currently working as an IT Security Administrator, managing infrastructure and security for a corporate environment. I recently earned my CPTS certification from Hack The Box, which is what solidified my focus on the offensive side of security.",
+  "Outside of work, I spend most of my time studying how Windows works under the hood, practicing attack chains on Hack The Box, and learning how malware actually operates at a low level. What really interests me is the overlap between system internals and offensive tradecraft, especially AV and EDR evasion.",
+  "Right now I'm working through the CRTP (Certified Red Team Professional) course and going deeper into Windows internals, malware development, and C/C++.",
 ];
 
 export const experiences: ExperienceItem[] = [
