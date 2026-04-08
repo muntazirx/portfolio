@@ -1,6 +1,8 @@
 import { getAllPosts } from "@/lib/mdx";
 import { siteMeta } from "@/data/site";
 
+export const runtime = "edge";
+
 export async function GET() {
   const posts = await getAllPosts();
   const siteUrl = "https://muntazirmehdi.com";
