@@ -3,7 +3,7 @@ import SocialIcons from "@/components/SocialIcons";
 import Image from "next/image";
 import Link from "next/link";
 import { siteMeta, resumeUrl } from "@/data/site";
-import { Download } from "lucide-react";
+import { Download, MapPin } from "lucide-react";
 
 export default function Sidebar() {
   return (
@@ -11,28 +11,49 @@ export default function Sidebar() {
       <div className="h-full pr-12 flex items-stretch justify-end">
         <div className="max-w-md w-full flex flex-col justify-between pb-12">
           <div className="mt-24">
-            <h1 className="text-[2.25rem] xl:text-[2.75rem] font-semibold tracking-tight gradient-text" style={{letterSpacing:"-0.02em"}}>
+            <div className="mono text-xs text-accent mb-3">
+              <span className="text-muted">$</span> whoami
+            </div>
+            <h1
+              className="text-[2.25rem] xl:text-[2.6rem] font-semibold tracking-tight text-heading"
+              style={{ letterSpacing: "-0.025em" }}
+            >
               {siteMeta.name}
             </h1>
-            <p className="mt-2 text-muted">{siteMeta.title}</p>
-            <p className="mt-6 text-foreground/80 leading-relaxed">{siteMeta.tagline}</p>
+            <p className="mt-2 mono text-sm text-accent">{siteMeta.role}</p>
+            <p className="mt-1 mono text-xs text-muted flex items-center gap-1.5">
+              <MapPin className="h-3 w-3" />
+              {siteMeta.location}
+            </p>
+
+            <p className="mt-6 text-foreground/80 leading-relaxed">
+              {siteMeta.tagline}
+            </p>
+
             <SidebarNav />
+
             <div className="mt-6">
               <Link
                 href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 download="Muntazir-Mehdi-CV.pdf"
-                className="inline-flex items-center gap-2 text-sm text-foreground/90 border border-accent bg-transparent px-4 py-2 rounded-lg hover:bg-accent/10 hover:text-accent transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 group"
+                className="inline-flex items-center gap-2 text-sm text-foreground border border-accent/60 bg-transparent px-4 py-2 rounded-md hover:bg-accent/10 hover:text-accent hover:border-accent transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 group mono tracking-wide"
               >
-                <Download className="h-4 w-4 transition-transform group-hover:translate-y-[-2px]" />
-                Download Resume
+                <Download className="h-4 w-4 transition-transform group-hover:translate-y-[-1px]" />
+                resume.pdf
               </Link>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="h-10 w-10 rounded-full overflow-hidden border border-foreground/15">
-              <Image src="/profile.png" alt="Profile photo" width={40} height={40} className="h-10 w-10 object-cover" />
+              <Image
+                src="/profile.png"
+                alt="Profile photo"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-cover"
+              />
             </div>
             <SocialIcons />
           </div>

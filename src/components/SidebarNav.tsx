@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { User, Briefcase, Award, BookOpen } from "lucide-react";
 
 const sections = [
-  { id: "about", label: "About", icon: User },
-  { id: "experience", label: "Experience", icon: Briefcase },
-  { id: "certifications", label: "Certifications", icon: Award },
-  { id: "blog", label: "Blog", icon: BookOpen },
+  { id: "about", label: "about", num: "01" },
+  { id: "experience", label: "experience", num: "02" },
+  { id: "certifications", label: "certifications", num: "03" },
+  { id: "labs", label: "labs", num: "04" },
+  { id: "blog", label: "writing", num: "05" },
 ];
 
 export default function SidebarNav() {
@@ -19,17 +19,16 @@ export default function SidebarNav() {
 
     const updateActive = () => {
       ticking.current = false;
-      const viewportCenter = window.innerHeight * 0.4; // bias toward upper area
+      const viewportCenter = window.innerHeight * 0.4;
 
-      // If scrolled to bottom, force last section active
-      const atBottom = window.innerHeight + window.scrollY >=
+      const atBottom =
+        window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 2;
       if (atBottom) {
         setActive(ids[ids.length - 1]);
         return;
       }
 
-      // Choose the visible section whose center is closest to viewportCenter.
       let bestId = ids[0];
       let bestDistance = Number.POSITIVE_INFINITY;
       for (let i = 0; i < ids.length; i++) {
@@ -56,7 +55,7 @@ export default function SidebarNav() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    updateActive(); // initial check
+    updateActive();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -69,42 +68,46 @@ export default function SidebarNav() {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
-      // Update active state immediately for better responsiveness
       setActive(id);
     }
   };
 
   return (
-    <>
-      {/* Desktop nav */}
-      <nav aria-label="Section navigation" className="mt-16 hidden lg:block">
-        <ul className="w-max">
-          {sections.map((item) => {
-            const isActive = active === item.id;
-            const Icon = item.icon;
-            return (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  onClick={(e) => handleClick(e, item.id)}
-                  className={`group flex items-center py-3 transition-all duration-300 ${
-                    isActive ? "text-heading" : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  <span className={`mr-4 transition-all duration-300 ${
-                    isActive ? "w-8 bg-heading" : "w-4 bg-muted group-hover:w-6 group-hover:bg-foreground"
-                  } h-[1px]`} />
-                  
-                  <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                    <Icon className={`h-3.5 w-3.5 transition-colors ${isActive ? "text-accent" : "text-muted group-hover:text-foreground"}`} />
-                    {item.label}
+    <nav aria-label="Section navigation" className="mt-12 hidden lg:block">
+      <ul className="w-max">
+        {sections.map((item) => {
+          const isActive = active === item.id;
+          return (
+            <li key={item.id}>
+              <a
+                href={`#${item.id}`}
+                onClick={(e) => handleClick(e, item.id)}
+                className={`group flex items-center py-2.5 transition-all duration-200 mono text-xs uppercase tracking-widest ${
+                  isActive ? "text-heading" : "text-muted hover:text-foreground"
+                }`}
+              >
+                <span
+                  className={`mr-4 transition-all duration-200 ${
+                    isActive
+                      ? "w-8 bg-accent"
+                      : "w-4 bg-muted/50 group-hover:w-6 group-hover:bg-foreground"
+                  } h-px`}
+                />
+                <span className="flex items-baseline gap-2">
+                  <span
+                    className={`${
+                      isActive ? "text-accent" : "text-muted/70"
+                    } text-[0.65rem]`}
+                  >
+                    {item.num}
                   </span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </>
+                  <span>{item.label}</span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

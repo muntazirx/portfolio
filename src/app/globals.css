@@ -1,89 +1,114 @@
 @import "tailwindcss";
 
 :root {
-  /* Dark Theme Palette */
-  --navy: #0f172a; /* Slightly warmer slate-900 */
-  --light-navy: #1e293b;
-  --lightest-navy: #334155;
-  --slate: #94a3b8;
-  --light-slate: #cbd5e1;
-  --lightest-slate: #e2e8f0;
-  --white: #f1f5f9;
-
-  /* Primary Accent: Mint/Seafoam - stands out from typical cyan */
-  --accent-primary: #5eead4;
-  /* Secondary Accent: Warm amber for special callouts */
-  --accent-warm: #fbbf24;
-
-  /* Dark-only palette */
-  --background: var(--navy);
-  --foreground: var(--slate);
-  --heading: var(--lightest-slate);
-  --muted: var(--light-slate);
-  --accent: var(--accent-primary);
-  --accent-secondary: var(--accent-warm);
-  --border: color-mix(in oklab, var(--foreground) 14%, transparent);
+  /* Core palette — dark, muted, terminal-adjacent without theatrics */
+  --background: #0b1018;
+  --surface: #11172119;
+  --foreground: #9aa5b4;
+  --heading: #dce3ec;
+  --muted: #6b7688;
+  --accent: #7ee0c7;          /* mint, low-saturation */
+  --accent-dim: #3f7e6f;
+  --accent-warm: #e5c07b;
+  --border: rgba(220, 227, 236, 0.08);
+  --border-strong: rgba(220, 227, 236, 0.14);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-secondary: var(--accent-warm);
   --color-heading: var(--heading);
   --color-muted: var(--muted);
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+html, body {
+  background: var(--background);
+  color: var(--foreground);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
-    Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial,
-    "Apple Color Emoji", "Segoe UI Emoji";
+    Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "ss01", "cv11";
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color: var(--heading);
+  letter-spacing: -0.01em;
 }
-/* Accent links */
-a {
-  color: inherit;
-}
+
+a { color: inherit; }
 a[href]:not(.unstyled) {
-  text-decoration-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  text-decoration-color: color-mix(in oklab, var(--accent) 35%, transparent);
   text-underline-offset: 4px;
 }
-a[href]:not(.unstyled):hover {
-  text-decoration: underline;
+a[href]:not(.unstyled):hover { text-decoration: underline; }
+
+/* Monospace utility — used for metadata, section numbers, labels */
+.mono {
+  font-family: var(--font-mono), ui-monospace, "JetBrains Mono", "SF Mono",
+    Menlo, Consolas, monospace;
+  font-feature-settings: "zero", "ss01";
 }
 
-/* Utilities */
-.container-narrow {
-  max-width: 48rem; /* 768px */
+/* Section heading — numbered, terminal-flavoured, still quiet */
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--heading);
+  letter-spacing: -0.005em;
+  margin-bottom: 2rem;
+}
+.section-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin-left: 0.25rem;
+}
+.section-heading .num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.section-heading .sep {
+  color: var(--muted);
+  font-weight: 400;
 }
 
-/* Gradient text for hero elements */
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent) 0%, #38bdf8 50%, var(--accent) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Skill / tag pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.72rem;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.375rem;
+  color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
 }
 
-/* Subtle glow on accent elements */
-.accent-glow {
-  text-shadow: 0 0 25px color-mix(in oklab, var(--accent) 40%, transparent);
+/* Focus list bullet */
+.focus-bullet::before {
+  content: "▹";
+  color: var(--accent);
+  margin-right: 0.5rem;
+  font-size: 0.9em;
 }
 
-/* Secondary accent color utility */
-.text-accent-secondary {
-  color: var(--accent-secondary);
-}
-
-/* Screen reader text */
+/* Screen reader only */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -96,76 +121,67 @@ a[href]:not(.unstyled):hover {
   border-width: 0;
 }
 
-/* Smooth scrolling for anchor links */
-html:focus-within {
-  scroll-behavior: smooth;
-}
+html:focus-within { scroll-behavior: smooth; }
 
-/* Solid background only: disable gradient/vignette overlays */
-body::before,
-body::after {
-  content: none !important;
-}
+/* Kill any residual gradient overlays */
+body::before, body::after { content: none !important; }
 
-/* When a route wants full-width content (no sidebar), it can opt out */
-/* Sidebar is controlled by AppShell now */
+/* Legacy hooks retained to avoid refactoring every component */
+.gradient-text { color: var(--heading); }
+.accent-glow { color: var(--accent); }
 
-/* No responsive overlays: solid color across all breakpoints */
-
-/* Glass panel used for timeline cards */
-
-/* Panel already uses dark palette — no media query needed */
-.panel {
-  background: linear-gradient(145deg, rgba(23,40,72,0.55), rgba(17,34,64,0.5));
-  border: 1px solid color-mix(in oklab, var(--lightest-slate) 10%, transparent);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(100,255,218,0.06);
-}
-
-/* Hover-activated panel for timeline items */
-.card {
-  background: transparent;
-  border: 1px solid transparent;
-  box-shadow: none;
-}
-
-
-
-/* Hover card already uses dark palette — no media query needed */
-.hover-panel:hover .card,
-.hover-panel:focus-within .card {
-  background: linear-gradient(145deg, rgba(23,40,72,0.55), rgba(17,34,64,0.5));
-  border: 1px solid color-mix(in oklab, var(--lightest-slate) 10%, transparent);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(100,255,218,0.06);
-}
-
-/* Comfortable reading rhythm for blog articles */
+/* Blog typography */
 .prose-blog {
   color: var(--foreground);
-  line-height: 1.9;
+  line-height: 1.85;
+  font-size: 1rem;
 }
-.prose-blog p {
-  margin-top: 0.9rem;
-  margin-bottom: 0.9rem;
-}
+.prose-blog p { margin: 0.9rem 0; }
 .prose-blog h2,
 .prose-blog h3 {
   color: var(--heading);
   letter-spacing: -0.01em;
   margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 .prose-blog h2 {
-  font-size: 1.375rem;
-  border-left: 3px solid var(--accent);
+  font-size: 1.3rem;
   padding-left: 0.75rem;
+  border-left: 2px solid var(--accent);
 }
+.prose-blog h3 { font-size: 1.1rem; }
 .prose-blog ul,
-.prose-blog ol {
-  margin: 1rem 0;
-  padding-left: 1.25rem;
-}
+.prose-blog ol { margin: 1rem 0; padding-left: 1.25rem; }
 .prose-blog ul { list-style: disc; }
 .prose-blog ol { list-style: decimal; }
 .prose-blog li { margin: 0.4rem 0; }
-.prose-blog a { text-decoration: underline; text-underline-offset: 5px; }
-.prose-blog hr { border-color: color-mix(in oklab, var(--foreground) 14%, transparent); }
+.prose-blog a {
+  color: var(--heading);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+.prose-blog a:hover { color: var(--accent); }
+.prose-blog hr { border-color: var(--border); }
+.prose-blog code:not(pre code) {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+  color: var(--accent);
+}
+.prose-blog pre {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+/* Panel used by blog figures */
+.panel {
+  background: color-mix(in oklab, var(--heading) 3%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}

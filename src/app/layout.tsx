@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import AppShell from "@/components/AppShell";
 import "./globals.css";
 
@@ -9,20 +9,39 @@ const inter = Inter({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Muntazir Mehdi — Security Researcher",
+  title: "Muntazir Mehdi — Offensive Security",
   description:
-    "CPTS-certified Security Researcher focused on red teaming, Windows internals, AV/EDR evasion, and malware research.",
-  keywords: ["cybersecurity", "security researcher", "penetration testing", "red team", "CPTS", "CRTP", "BTL1", "eJPT", "offensive security", "Windows internals", "malware development", "AV evasion", "EDR evasion", "Hack The Box"],
+    "Junior offensive security professional based in Saudi Arabia. CPTS, BTL1, eJPT, CRTP in progress. Pentesting, red teaming, and detection work.",
+  keywords: [
+    "cybersecurity",
+    "offensive security",
+    "penetration testing",
+    "red team",
+    "CPTS",
+    "CRTP",
+    "BTL1",
+    "eJPT",
+    "Active Directory",
+    "Hack The Box",
+    "Saudi Arabia cybersecurity",
+    "SOC",
+    "threat detection",
+    "security engineering",
+  ],
   metadataBase: new URL("https://muntazirmehdi.com"),
-  alternates: {
-    canonical: "./",
-  },
+  alternates: { canonical: "./" },
   icons: { icon: "/profile.png" },
   openGraph: {
-    title: "Muntazir Mehdi — Security Researcher",
+    title: "Muntazir Mehdi — Offensive Security",
     description:
-      "CPTS-certified Security Researcher focused on red teaming, Windows internals, and malware research.",
+      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, working through CRTP, hands-on with Active Directory and HTB Pro Labs.",
     type: "website",
     url: "https://muntazirmehdi.com",
     siteName: "Muntazir Mehdi",
@@ -30,9 +49,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Muntazir Mehdi — Security Researcher",
+    title: "Muntazir Mehdi — Offensive Security",
     description:
-      "CPTS-certified Security Researcher focused on red teaming, Windows internals, and malware research.",
+      "Junior offensive security professional based in Saudi Arabia. CPTS, BTL1, eJPT, CRTP in progress.",
     images: ["/profile.png"],
   },
   robots: { index: true, follow: true },
@@ -47,23 +66,28 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Muntazir Mehdi",
-    jobTitle: "Security Researcher",
-    description: "CPTS-certified Security Researcher focused on red teaming, Windows internals, and malware research.",
+    jobTitle: "Offensive Security",
+    description:
+      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, working through CRTP.",
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: "Eastern Province",
+      addressCountry: "SA",
+    },
     url: "https://muntazirmehdi.com",
     sameAs: [
       "https://github.com/muntazirx",
-      "https://www.linkedin.com/in/muntazirx",
+      "https://www.linkedin.com/in/mntzr",
+      "https://app.hackthebox.com/users/1843606",
     ],
   };
 
   return (
     <html lang="en" className="bg-background" suppressHydrationWarning={true}>
-      <body className={`${inter.variable} antialiased`}> 
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <a
           href="#main"

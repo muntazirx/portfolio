@@ -9,10 +9,11 @@ import SocialIcons from "@/components/SocialIcons";
 import { Menu, X } from "lucide-react";
 
 const sections = [
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "certifications", label: "Certifications" },
-  { id: "blog", label: "Blog" },
+  { id: "about", label: "about", num: "01" },
+  { id: "experience", label: "experience", num: "02" },
+  { id: "certifications", label: "certifications", num: "03" },
+  { id: "labs", label: "labs", num: "04" },
+  { id: "blog", label: "writing", num: "05" },
 ];
 
 export default function MobileNav() {
@@ -31,9 +32,10 @@ export default function MobileNav() {
 
     const updateActive = () => {
       const viewportCenter = window.innerHeight * 0.4;
-      const atBottom = window.innerHeight + window.scrollY >=
+      const atBottom =
+        window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 2;
-      
+
       if (atBottom) {
         setActive(ids[ids.length - 1]);
         return;
@@ -83,41 +85,40 @@ export default function MobileNav() {
 
   const handleNavClick = (sectionId: string) => {
     setIsOpen(false);
-    if (sectionId === "blog") {
-      return; // Blog link will use Next.js Link component
-    }
+    if (sectionId === "blog") return;
     setTimeout(() => {
       const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
 
   return (
     <>
-      {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-foreground/10">
         <div className="flex items-center justify-between px-4 sm:px-6 py-3">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full overflow-hidden border border-foreground/15">
-              <Image 
-                src="/profile.png" 
-                alt="Profile photo" 
-                width={32} 
-                height={32} 
-                className="h-8 w-8 object-cover" 
+              <Image
+                src="/profile.png"
+                alt="Profile photo"
+                width={32}
+                height={32}
+                className="h-8 w-8 object-cover"
                 suppressHydrationWarning
               />
             </div>
             <div>
-              <div className="text-sm font-semibold gradient-text">{siteMeta.name}</div>
-              <div className="text-xs text-muted">{siteMeta.title}</div>
+              <div className="text-sm font-semibold text-heading">
+                {siteMeta.name}
+              </div>
+              <div className="mono text-[0.7rem] text-accent tracking-wide">
+                {siteMeta.role}
+              </div>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-lg hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+            className="p-2 rounded hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
           >
@@ -130,7 +131,6 @@ export default function MobileNav() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       {isOpen && (
         <div
           className="lg:hidden fixed inset-0 z-40 bg-background/95 backdrop-blur-sm"
@@ -138,41 +138,59 @@ export default function MobileNav() {
         >
           <div className="h-full overflow-y-auto px-6 py-8">
             <nav aria-label="Mobile navigation" className="space-y-6">
-              <ul className="space-y-4">
-                {sections.map((s) => (
-                  <li key={s.id}>
-                    {s.id === "blog" ? (
-                      <Link
-                        href="/blog"
-                        onClick={() => setIsOpen(false)}
-                        className={`block w-full text-left text-lg font-medium ${
-                          active === s.id ? "text-heading" : "text-foreground/70"
-                        } transition-colors`}
+              <ul className="space-y-3">
+                {sections.map((s) => {
+                  const isActive = active === s.id;
+                  const content = (
+                    <span className="flex items-baseline gap-3 mono uppercase tracking-widest text-sm">
+                      <span
+                        className={`text-xs ${
+                          isActive ? "text-accent" : "text-muted"
+                        }`}
+                      >
+                        {s.num}
+                      </span>
+                      <span
+                        className={
+                          isActive ? "text-heading" : "text-foreground/70"
+                        }
                       >
                         {s.label}
-                      </Link>
-                    ) : (
-                      <button
-                        onClick={() => handleNavClick(s.id)}
-                        className={`block w-full text-left text-lg font-medium ${
-                          active === s.id ? "text-heading" : "text-foreground/70"
-                        } transition-colors`}
-                      >
-                        {s.label}
-                      </button>
-                    )}
-                  </li>
-                ))}
-                <li>
+                      </span>
+                    </span>
+                  );
+                  return (
+                    <li key={s.id}>
+                      {s.id === "blog" ? (
+                        <Link
+                          href="/blog"
+                          onClick={() => setIsOpen(false)}
+                          className="unstyled block py-2"
+                        >
+                          {content}
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => handleNavClick(s.id)}
+                          className="block w-full text-left py-2"
+                        >
+                          {content}
+                        </button>
+                      )}
+                    </li>
+                  );
+                })}
+                <li className="pt-3">
                   <Link
                     href={resumeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     download="Muntazir-Mehdi-CV.pdf"
                     onClick={() => setIsOpen(false)}
-                    className="block w-full text-left text-lg font-medium text-foreground/70 hover:text-heading transition-colors"
+                    className="unstyled block py-2 mono uppercase tracking-widest text-sm text-foreground/70 hover:text-accent"
                   >
-                    Resume
+                    <span className="text-xs text-muted mr-3">06</span>
+                    resume.pdf
                   </Link>
                 </li>
               </ul>
