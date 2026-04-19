@@ -31,7 +31,7 @@ export const siteMeta = {
   name: "Muntazir Mehdi",
   role: "Offensive Security",
   location: "Eastern Province, Saudi Arabia",
-  tagline: "I break things to understand how they work.",
+  tagline: "Turned 'access denied' into a career goal",
 };
 
 export const socialLinks: SocialLink[] = [
