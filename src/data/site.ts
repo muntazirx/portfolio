@@ -42,38 +42,42 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "I'm a junior offensive security professional based in the Eastern Province of Saudi Arabia. Day-to-day I work as an IT analyst — handling infrastructure, endpoints, and access for a corporate environment — and spend the rest of my time on Hack The Box, Active Directory labs, and the offensive security stack.",
-  "I earned my CPTS from Hack The Box in April 2026 after completing two pro labs — Dante and Zephyr. Currently working through CRTP, focused on Active Directory attack chains and Windows internals. BTL1 and eJPT came before that.",
-  "For roles, I'm not fixed on one track — pentesting, red teaming, SOC/threat detection, or security engineering. As long as the work is hands-on and technical, I'm interested.",
+  "IT by day, offensive security by night. Based in Saudi Arabia, working as an IT analyst. Most of what I actually care about in security happens after work, on HTB, in AD labs, or whatever I'm reading that week.",
+  "Got my CPTS in April 2026 after clearing Dante and Zephyr on HTB. Those were the labs that made things click for me. Currently grinding through CRTP. After that it's Windows internals and C/C++, then MalDev Academy, ODPC, and eventually OSCP. It's a long list, I know.",
+  "This site is mostly for me. Writing stuff down keeps me honest about what I actually understand versus what I just skimmed. If you're on the same path, maybe some of it is useful.",
 ];
 
 export const focusAreas: string[] = [
-  "Active Directory enumeration & attacks",
-  "Internal network & web app pentesting",
-  "Windows internals & privilege escalation",
-  "Log analysis & detection fundamentals",
-  "PowerShell, Python, C/C++",
+  "Active Directory & enterprise attack chains",
+  "Windows internals & low-level exploitation",
+  "Malware development & AV/EDR evasion",
+  "C/C++, PowerShell, Python",
 ];
 
 export const roadmap: RoadmapItem[] = [
   {
     label: "CRTP",
-    detail: "Active Directory attack tradecraft — Altered Security",
+    detail: "Active Directory attack tradecraft, Altered Security",
     status: "In progress",
   },
   {
     label: "Windows Internals + C/C++",
-    detail: "Pluralsight and self-study — low-level foundations",
+    detail: "Pluralsight and self-study, the unsexy groundwork",
     status: "Next",
   },
   {
     label: "MalDev Academy",
-    detail: "Malware development course",
+    detail: "Malware dev from the ground up",
     status: "Planned",
   },
   {
     label: "ODPC",
-    detail: "Offensive Development Practitioner — White Knight Labs",
+    detail: "Offensive Development Practitioner, White Knight Labs",
+    status: "Planned",
+  },
+  {
+    label: "OSCP",
+    detail: "OffSec, the one everyone asks about",
     status: "Planned",
   },
 ];
@@ -83,14 +87,14 @@ export const labs: LabItem[] = [
     name: "Dante",
     platform: "Hack The Box Pro Labs",
     status: "Completed",
-    note: "Internal network compromise — pivoting, post-exploitation, and privilege escalation across a corporate-style network.",
+    note: "My first pro lab. Big, messy, and the one that taught me to take proper notes because without them you end up three pivots deep with no clue where you are.",
     href: "https://www.hackthebox.com/achievement/prolabs/1843606/8",
   },
   {
     name: "Zephyr",
     platform: "Hack The Box Pro Labs",
     status: "Completed",
-    note: "Red team scenario focused on Active Directory attacks — Kerberos abuse, trust relationships, and lateral movement across multiple forests.",
+    note: "Pure AD. This is where Kerberoasting, ACL abuse, and cross-forest trusts stopped being textbook terms and started actually making sense.",
     href: "https://www.hackthebox.com/achievement/prolabs/1843606/17",
   },
 ];
@@ -102,7 +106,7 @@ export const experiences: ExperienceItem[] = [
     start: "Jun 2025",
     end: "Present",
     summary:
-      "Run IT and endpoint security for a 25-user corporate environment. Own user access and Active Directory hygiene, patching cadence, and AV/EDR coverage. First line on incidents — triage and resolve hardware, software, and network issues end-to-end.",
+      "Run IT for a 25-person office. Active Directory, patching, endpoints, AV coverage, and first response for whatever breaks on any given day. Small enough team that I own most of it end to end, which is honestly how I've been learning the defensive side.",
     skills: [
       "Active Directory",
       "Endpoint Security",
@@ -117,7 +121,7 @@ export const experiences: ExperienceItem[] = [
     start: "Jan 2024",
     end: "Apr 2024",
     summary:
-      "Ran vulnerability assessments and penetration tests against university lab infrastructure. Surfaced exploitable misconfigurations and weak services, then wrote them up with risk ratings and concrete remediation steps the IT team could action.",
+      "Ran vuln assessments and pentests against the university's lab infrastructure. Found the exploitable stuff, wrote it up with risk ratings and fix steps, and handed it back to IT. First time I did this kind of work for something real.",
     skills: [
       "Vulnerability Assessment",
       "Penetration Testing",
@@ -131,7 +135,7 @@ export const experiences: ExperienceItem[] = [
     start: "Sep 2023",
     end: "Jan 2024",
     summary:
-      "Imaged and hardened lab workstations against a standard security baseline. Handled day-to-day hardware and software issues for students and staff, and wrote up procedures for the university's internal knowledge base.",
+      "Imaged and hardened the lab machines, fixed whatever broke for students and staff, wrote procedures that went into APU's internal knowledge base. Sounds boring on paper but it's where I learned how enterprise IT actually holds together.",
     skills: ["Imaging", "Security Baselines", "Troubleshooting", "Documentation"],
   },
 ];

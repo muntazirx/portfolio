@@ -84,7 +84,7 @@ export default async function Home() {
                 </span>
                 <span className="text-foreground/90">
                   <span className="text-heading font-medium">{step.label}</span>
-                  <span className="text-muted"> — {step.detail}</span>
+                  <span className="text-muted">, {step.detail}</span>
                 </span>
                 <span
                   className={`mono text-[0.65rem] uppercase tracking-wider whitespace-nowrap ${
@@ -149,8 +149,8 @@ export default async function Home() {
 
       <Section id="labs" number="04" title="labs">
         <p className="text-foreground/80 leading-relaxed text-sm mb-8">
-          Where I spend most of my off-hours — end-to-end attack chains against
-          realistic corporate and Active Directory environments.
+          Where I actually spend time outside of coursework. Full attack
+          chains, not isolated boxes.
         </p>
         <ul className="space-y-8">
           {labs.map((lab) => (

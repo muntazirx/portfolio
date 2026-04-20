@@ -15,7 +15,7 @@ export default function Timeline({ items }: Props) {
         >
           <div className="mono text-xs uppercase tracking-wider text-muted pt-1.5 md:text-right">
             <span className="whitespace-nowrap">
-              {item.start} — {item.end}
+              {item.start} – {item.end}
             </span>
           </div>
 
