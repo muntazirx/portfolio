@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { siteMeta, resumeUrl } from "@/data/site";
+import { siteMeta } from "@/data/site";
 import SocialIcons from "@/components/SocialIcons";
 import { Menu, X } from "lucide-react";
 
@@ -21,10 +21,16 @@ export default function MobileNav() {
   const [active, setActive] = useState<string>("");
   const pathname = usePathname();
   const isBlog = pathname?.startsWith("/blog") ?? false;
+  const isCv = pathname?.startsWith("/cv") ?? false;
+  const offHome = isBlog || isCv;
 
   useEffect(() => {
     if (isBlog) {
       setActive("blog");
+      return;
+    }
+    if (isCv) {
+      setActive("cv");
       return;
     }
 
@@ -70,7 +76,7 @@ export default function MobileNav() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
     };
-  }, [isBlog]);
+  }, [isBlog, isCv]);
 
   useEffect(() => {
     if (isOpen) {
@@ -169,6 +175,14 @@ export default function MobileNav() {
                         >
                           {content}
                         </Link>
+                      ) : offHome ? (
+                        <Link
+                          href={`/#${s.id}`}
+                          onClick={() => setIsOpen(false)}
+                          className="unstyled block py-2"
+                        >
+                          {content}
+                        </Link>
                       ) : (
                         <button
                           onClick={() => handleNavClick(s.id)}
@@ -182,15 +196,12 @@ export default function MobileNav() {
                 })}
                 <li className="pt-3">
                   <Link
-                    href={resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download="Muntazir-Mehdi-CV.pdf"
+                    href="/cv"
                     onClick={() => setIsOpen(false)}
                     className="unstyled block py-2 mono uppercase tracking-widest text-sm text-foreground/70 hover:text-accent"
                   >
                     <span className="text-xs text-muted mr-3">06</span>
-                    resume.pdf
+                    cv
                   </Link>
                 </li>
               </ul>

@@ -8,14 +8,16 @@ import { usePathname } from "next/navigation";
 function AppShellContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isBlog = pathname?.startsWith("/blog") ?? false;
+  const isCv = pathname?.startsWith("/cv") ?? false;
+  const standalone = isBlog || isCv;
 
   return (
     <>
       <MobileNav />
-      {!isBlog && <Sidebar />}
+      {!standalone && <Sidebar />}
       <main
         id="main"
-        className={`${!isBlog ? "lg:ml-[38%] xl:ml-[43%] 2xl:ml-[46%]" : ""} ${!isBlog ? "pt-16 lg:pt-0" : ""} pr-4 sm:pr-6 lg:pr-10 xl:pr-14 2xl:pr-20`}
+        className={`${!standalone ? "lg:ml-[38%] xl:ml-[43%] 2xl:ml-[46%]" : ""} ${!standalone ? "pt-16 lg:pt-0" : ""} pr-4 sm:pr-6 lg:pr-10 xl:pr-14 2xl:pr-20`}
       >
         {children}
       </main>

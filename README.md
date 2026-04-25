@@ -1,6 +1,6 @@
 # muntazirmehdi.com
 
-Personal portfolio — Muntazir Mehdi, offensive security.
+Personal portfolio. Muntazir Mehdi, offensive security.
 
 Built with Next.js 15, TypeScript, and Tailwind v4. Dark, minimal, terminal-adjacent.
 
@@ -9,15 +9,19 @@ Built with Next.js 15, TypeScript, and Tailwind v4. Dark, minimal, terminal-adja
 ```
 ├── content/blog/                 MDX blog posts
 ├── public/
-│   ├── cv.html                   Print-ready one-page CV (Cmd/Ctrl+P → PDF)
-│   ├── Muntazir-Mehdi-CV.pdf     Downloadable CV served from the sidebar
+│   ├── _headers                  Security headers (Cloudflare Pages / Netlify)
+│   ├── Muntazir-Mehdi-CV.pdf     Downloadable CV (linked from /cv page)
 │   └── logos/                    Certification logos
 ├── src/
-│   ├── app/                      Next.js app router pages
+│   ├── app/
+│   │   ├── page.tsx              Homepage
+│   │   ├── cv/page.tsx           Rendered CV view
+│   │   └── blog/                 Blog index + post pages
 │   ├── components/               UI components
-│   ├── data/site.ts              Site data — bio, experience, labs, social links
+│   ├── data/site.ts              Single source of truth: bio, experience,
+│   │                             certifications, labs, roadmap, skills, education
 │   └── lib/mdx.ts                MDX compilation
-└── cv.md                         CV source (editable master copy)
+└── README.md
 ```
 
 ## Develop
@@ -31,10 +35,12 @@ Open http://localhost:3000.
 
 ## Content
 
-- **Bio / experience / focus areas / labs** — `src/data/site.ts`
-- **Certifications** — `src/app/page.tsx` (cards with hrefs)
+All factual content lives in `src/data/site.ts`. Editing it updates both the
+homepage and the `/cv` view together so they never drift.
+
+- **Bio, experience, focus areas, labs, roadmap, certifications, skills, education** — `src/data/site.ts`
 - **Blog posts** — `content/blog/*.mdx` with frontmatter (`title`, `year`, `readingTime`, `description`, `imageSrc`, `keywords`)
-- **CV** — edit `cv.md` (source) and mirror into `public/cv.html` / regenerate PDF as needed
+- **Downloadable PDF CV** — drop the file at `public/Muntazir-Mehdi-CV.pdf`. Linked from the `download.pdf` button on `/cv`
 
 ## Deploy
 

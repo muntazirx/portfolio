@@ -4,6 +4,7 @@ import CertificationCard from "@/components/CertificationCard";
 import BlogCard from "@/components/BlogCard";
 import {
   aboutParagraphs,
+  certifications,
   experiences,
   focusAreas,
   labs,
@@ -109,41 +110,23 @@ export default async function Home() {
 
       <Section id="certifications" number="03" title="certifications">
         <div className="space-y-8">
-          <CertificationCard
-            title="Certified Penetration Testing Specialist (CPTS)"
-            issuer="Hack The Box · Apr 2026"
-            href="https://www.credly.com/badges/b77c41bd-d54f-41af-ba0e-48692865e7ff/public_url"
-            logoSrc="/logos/cpts.png"
-            logoAlt="CPTS"
-          />
-          <CertificationCard
-            title="Certified Red Team Professional (CRTP)"
-            issuer="Altered Security · In progress"
-            href="https://www.alteredsecurity.com/adlab"
-            logoSrc="/logos/crtp.png"
-            logoAlt="CRTP"
-          />
-          <CertificationCard
-            title="Blue Team Level 1 (BTL1)"
-            issuer="Security Blue Team"
-            href="https://www.credly.com/badges/fbfa4599-ebcd-467a-aa16-fac609d322a4"
-            logoSrc="/logos/btl1.png"
-            logoAlt="Security Blue Team BTL1"
-          />
-          <CertificationCard
-            title="Junior Penetration Tester (eJPT)"
-            issuer="INE / eLearnSecurity"
-            href="https://certs.ine.com/1be389d0-2d14-44bd-bbb5-feac61489abc"
-            logoSrc="/logos/ejpt.png"
-            logoAlt="eJPT"
-          />
-          <CertificationCard
-            title="INE Certified Cloud Associate (ICCA)"
-            issuer="INE"
-            href="https://certs.ine.com/a2a7eee8-429a-4de2-8b3c-85fc51772a71"
-            logoSrc="/logos/icca.png"
-            logoAlt="ICCA"
-          />
+          {certifications.map((c) => {
+            const issuerLine = c.date
+              ? `${c.issuer} · ${c.date}`
+              : c.status
+                ? `${c.issuer} · ${c.status}`
+                : c.issuer;
+            return (
+              <CertificationCard
+                key={c.shortName}
+                title={`${c.title} (${c.shortName})`}
+                issuer={issuerLine}
+                href={c.href}
+                logoSrc={c.logoSrc}
+                logoAlt={c.logoAlt ?? c.shortName}
+              />
+            );
+          })}
         </div>
       </Section>
 

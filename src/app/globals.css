@@ -185,3 +185,41 @@ body::before, body::after { content: none !important; }
   border: 1px solid var(--border);
   border-radius: 0.5rem;
 }
+
+/* CV bullet — small arrow, terminal-flavoured */
+.cv-bullet::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+
+/* Print rules — clean, single-page-friendly black-on-white */
+@media print {
+  :root {
+    --background: #ffffff;
+    --foreground: #1f2937;
+    --heading: #0f172a;
+    --muted: #6b7280;
+    --accent: #0f766e;
+    --accent-warm: #b45309;
+    --border: rgba(15, 23, 42, 0.12);
+  }
+  html, body {
+    background: #ffffff;
+    color: #1f2937;
+  }
+  a { text-decoration: none !important; color: inherit !important; }
+  .cv-page {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .cv-page section { break-inside: avoid; }
+  .cv-page header { break-after: avoid; }
+  .cv-page article { break-inside: avoid; }
+}

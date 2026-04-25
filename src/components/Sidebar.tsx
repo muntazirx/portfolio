@@ -2,8 +2,8 @@ import SidebarNav from "@/components/SidebarNav";
 import SocialIcons from "@/components/SocialIcons";
 import Image from "next/image";
 import Link from "next/link";
-import { siteMeta, resumeUrl } from "@/data/site";
-import { Download, MapPin } from "lucide-react";
+import { siteMeta } from "@/data/site";
+import { FileText, MapPin } from "lucide-react";
 
 export default function Sidebar() {
   return (
@@ -34,14 +34,11 @@ export default function Sidebar() {
 
             <div className="mt-6">
               <Link
-                href={resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download="Muntazir-Mehdi-CV.pdf"
+                href="/cv"
                 className="inline-flex items-center gap-2 text-sm text-foreground border border-accent/60 bg-transparent px-4 py-2 rounded-md hover:bg-accent/10 hover:text-accent hover:border-accent transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 group mono tracking-wide"
               >
-                <Download className="h-4 w-4 transition-transform group-hover:translate-y-[-1px]" />
-                resume.pdf
+                <FileText className="h-4 w-4 transition-transform group-hover:translate-y-[-1px]" />
+                view cv
               </Link>
             </div>
           </div>
