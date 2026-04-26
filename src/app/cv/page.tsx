@@ -303,19 +303,6 @@ export default function CvPage() {
         </div>
       </CvSection>
 
-      {/* Footer */}
-      <footer className="mt-16 pt-6 border-t border-foreground/10 mono text-[0.7rem] text-muted flex items-center justify-between">
-        <span>last build: {new Date().toISOString().split("T")[0]}</span>
-        <span className="print:hidden">
-          rendered from{" "}
-          <Link
-            href="/"
-            className="unstyled hover:text-accent transition-colors"
-          >
-            muntazirmehdi.com
-          </Link>
-        </span>
-      </footer>
     </div>
   );
 }

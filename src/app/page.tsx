@@ -12,6 +12,7 @@ import {
 } from "@/data/site";
 import { getAllPosts } from "@/lib/mdx";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export default async function Home() {
   const posts = await getAllPosts();
@@ -33,11 +34,12 @@ export default async function Home() {
     `(${highlightPhrases.map(escapeRegExp).join("|")})`,
     "g"
   );
+  const highlightSet = new Set(highlightPhrases);
 
   const highlightText = (text: string) => {
     const parts = text.split(pattern);
     return parts.map((part, i) =>
-      pattern.test(part) ? (
+      highlightSet.has(part) ? (
         <span key={i} className="text-heading font-medium">
           {part}
         </span>
@@ -132,8 +134,8 @@ export default async function Home() {
 
       <Section id="labs" number="04" title="labs">
         <p className="text-foreground/80 leading-relaxed text-sm mb-8">
-          Where I actually spend time outside of coursework. Full attack
-          chains, not isolated boxes.
+          Where I test myself outside normal study. Longer scenarios, full
+          attack chains, and decisions that feel closer to real environments.
         </p>
         <ul className="space-y-8">
           {labs.map((lab) => (
@@ -177,7 +179,7 @@ export default async function Home() {
           <p className="text-foreground/70">No posts yet.</p>
         ) : (
           <div className="space-y-10">
-            {posts.map((w) => (
+            {posts.slice(0, 3).map((w) => (
               <BlogCard
                 key={w.slug}
                 title={w.title}
@@ -188,6 +190,14 @@ export default async function Home() {
                 href={`/blog/${w.slug}`}
               />
             ))}
+            <div className="pt-2">
+              <Link
+                href="/blog"
+                className="unstyled mono text-xs uppercase tracking-widest text-muted hover:text-accent transition-colors"
+              >
+                view all writing
+              </Link>
+            </div>
           </div>
         )}
       </Section>

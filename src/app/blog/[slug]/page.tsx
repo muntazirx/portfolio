@@ -165,6 +165,13 @@ export default async function BlogPost({ params }: Params) {
         </div>
       </aside>
     <article className="max-w-none">
+      <Link
+        href="/"
+        className="lg:hidden inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors group mb-5"
+      >
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+        Back to Home
+      </Link>
       <header>
         <p className="text-muted text-sm">{post.year}{post.readingTime ? ` · ${post.readingTime}` : ""}</p>
         <h1 className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-heading" style={{letterSpacing: "-0.01em"}}>

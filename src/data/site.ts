@@ -58,7 +58,7 @@ export const siteMeta = {
   name: "Muntazir Mehdi",
   role: "Offensive Security",
   location: "Eastern Province, Saudi Arabia",
-  tagline: "Turned 'access denied' into a career goal",
+  tagline: "Trying, failing, learning, repeating.",
 };
 
 export const socialLinks: SocialLink[] = [
@@ -69,16 +69,16 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const aboutParagraphs: string[] = [
-  "IT by day, offensive security by night. Based in Saudi Arabia, working as an IT analyst. Most of what I actually care about in security happens after work, on HTB, in AD labs, or whatever I'm reading that week.",
-  "Got my CPTS in April 2026 after clearing Dante and Zephyr on HTB. Those were the labs that made things click for me. Currently grinding through CRTP. After that it's Windows internals and C/C++, then MalDev Academy, ODPC, and eventually OSCP. It's a long list, I know.",
-  "This site is mostly for me. Writing stuff down keeps me honest about what I actually understand versus what I just skimmed. If you're on the same path, maybe some of it is useful.",
+  "I work as an IT analyst in Saudi Arabia. Outside work, most of my time goes into HTB, AD labs, and studying whatever I am currently weak at.",
+  "I completed CPTS in April 2026 after finishing Dante and Zephyr on HTB. Those labs changed how I approach learning. Right now I am focused on CRTP and building a stronger AD foundation.",
+  "From there I am moving into Windows internals and C/C++, then MalDev Academy, ODPC, and finally OSCP. This site is my personal notebook. I use it to track what I can actually do, not just what I have read.",
 ];
 
 export const focusAreas: string[] = [
-  "Active Directory & enterprise attack chains",
-  "Windows internals & low-level exploitation",
-  "Malware development & AV/EDR evasion",
-  "C/C++, PowerShell, Python",
+  "Active Directory attack paths and privilege escalation",
+  "Windows internals and endpoint behavior",
+  "Offensive tooling with PowerShell, Python, and C/C++",
+  "Malware development and AV/EDR evasion roadmap",
 ];
 
 export const roadmap: RoadmapItem[] = [
@@ -89,7 +89,7 @@ export const roadmap: RoadmapItem[] = [
   },
   {
     label: "Windows Internals + C/C++",
-    detail: "Pluralsight and self-study, the unsexy groundwork",
+    detail: "Pluralsight and self-study",
     status: "Next",
   },
   {
@@ -114,14 +114,14 @@ export const labs: LabItem[] = [
     name: "Dante",
     platform: "Hack The Box Pro Labs",
     status: "Completed",
-    note: "My first pro lab. Big, messy, and the one that taught me to take proper notes because without them you end up three pivots deep with no clue where you are.",
+    note: "My first pro lab. Big and messy. It taught me to keep clean notes because three pivots later you can lose track fast.",
     href: "https://www.hackthebox.com/achievement/prolabs/1843606/8",
   },
   {
     name: "Zephyr",
     platform: "Hack The Box Pro Labs",
     status: "Completed",
-    note: "Pure AD. This is where Kerberoasting, ACL abuse, and cross-forest trusts stopped being textbook terms and started actually making sense.",
+    note: "Pure AD. This is where Kerberoasting, ACL abuse, and cross-forest trusts stopped being theory and started making practical sense.",
     href: "https://www.hackthebox.com/achievement/prolabs/1843606/17",
   },
 ];
@@ -133,11 +133,11 @@ export const experiences: ExperienceItem[] = [
     start: "Jun 2025",
     end: "Present",
     summary:
-      "Run IT for a 25-person office. Active Directory, patching, endpoints, AV coverage, and first response for whatever breaks on any given day. Small enough team that I own most of it end to end, which is honestly how I've been learning the defensive side.",
+      "I run IT for a 25-person office. That includes Active Directory, patching, endpoints, AV coverage, and first response for whatever breaks. The team is small enough that I own most of it end to end, which is how I have been learning the defensive side properly.",
     bullets: [
-      "Run Active Directory, patching, endpoint security, and AV/EDR coverage for a 25-user environment.",
-      "Own the user access lifecycle end to end: provisioning, deprovisioning, group policy, and password resets.",
-      "First responder on incidents. Triage and resolve hardware, software, and network issues without escalation.",
+      "Manage Active Directory, patching, endpoint security, and AV/EDR coverage for a 25-user office.",
+      "Own the full access lifecycle: provisioning, deprovisioning, group policy hygiene, and password resets.",
+      "Handle first-response IT incidents and resolve hardware, software, and network issues without escalation.",
     ],
     skills: [
       "Active Directory",
@@ -153,11 +153,11 @@ export const experiences: ExperienceItem[] = [
     start: "Jan 2024",
     end: "Apr 2024",
     summary:
-      "Ran vuln assessments and pentests against the university's lab infrastructure. Found the exploitable stuff, wrote it up with risk ratings and fix steps, and handed it back to IT. First time I did this kind of work for something real.",
+      "I ran vuln assessments and pentests against the university lab infrastructure. I found exploitable misconfigurations, wrote risk-rated reports with fix steps, and handed them back to IT. It was my first time doing this kind of work for a real environment.",
     bullets: [
-      "Ran vulnerability assessments and penetration tests against university lab infrastructure.",
-      "Identified exploitable misconfigurations and weak services. Turned findings into risk-rated reports with concrete remediation paths.",
-      "Wrote technical writeups for both IT staff and faculty stakeholders.",
+      "Performed vulnerability assessments and penetration tests against university lab infrastructure.",
+      "Identified exploitable misconfigurations and weak services, then produced risk-rated reports with remediation steps.",
+      "Delivered technical writeups for both IT staff and faculty stakeholders.",
     ],
     skills: [
       "Vulnerability Assessment",
@@ -172,18 +172,18 @@ export const experiences: ExperienceItem[] = [
     start: "Sep 2023",
     end: "Jan 2024",
     summary:
-      "Imaged and hardened the lab machines, fixed whatever broke for students and staff, wrote procedures that went into APU's internal knowledge base. Sounds boring on paper but it's where I learned how enterprise IT actually holds together.",
+      "I imaged and hardened lab machines, fixed day-to-day issues for students and staff, and wrote procedures for APU's internal knowledge base. It sounds basic on paper, but it is where I learned how enterprise IT actually holds together.",
     bullets: [
       "Imaged and hardened lab workstations to a standardised security baseline.",
-      "Resolved hardware and software tickets for students and staff.",
-      "Authored procedures for the university's internal IT knowledge base.",
+      "Resolved day-to-day hardware and software tickets for students and staff.",
+      "Documented repeatable procedures for the university's internal IT knowledge base.",
     ],
     skills: ["Imaging", "Security Baselines", "Troubleshooting", "Documentation"],
   },
 ];
 
 export const cvSummary =
-  "IT analyst by day, offensive security after hours. CPTS-certified, with two HTB Pro Labs cleared (Dante and Zephyr). Working through CRTP now, with Windows internals, C/C++, MalDev Academy, ODPC, and OSCP lined up after that. Open to offensive security, red team, or detection-engineering roles in Saudi Arabia where the work is actually technical and not just running reports.";
+  "IT analyst by day, offensive security after hours. CPTS-certified, with Dante and Zephyr completed on HTB Pro Labs. Currently working through CRTP, followed by Windows internals and C/C++, then MalDev Academy, ODPC, and OSCP. Open to offensive security, red team, and detection engineering roles in Saudi Arabia where the work is technical and hands-on.";
 
 export const certifications: CertificationItem[] = [
   {

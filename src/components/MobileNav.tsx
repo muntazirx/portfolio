@@ -171,6 +171,7 @@ export default function MobileNav() {
                         <Link
                           href="/blog"
                           onClick={() => setIsOpen(false)}
+                          aria-current={isActive ? "page" : undefined}
                           className="unstyled block py-2"
                         >
                           {content}
@@ -179,6 +180,7 @@ export default function MobileNav() {
                         <Link
                           href={`/#${s.id}`}
                           onClick={() => setIsOpen(false)}
+                          aria-current={isActive ? "location" : undefined}
                           className="unstyled block py-2"
                         >
                           {content}
@@ -186,6 +188,7 @@ export default function MobileNav() {
                       ) : (
                         <button
                           onClick={() => handleNavClick(s.id)}
+                          aria-current={isActive ? "location" : undefined}
                           className="block w-full text-left py-2"
                         >
                           {content}
@@ -198,10 +201,17 @@ export default function MobileNav() {
                   <Link
                     href="/cv"
                     onClick={() => setIsOpen(false)}
-                    className="unstyled block py-2 mono uppercase tracking-widest text-sm text-foreground/70 hover:text-accent"
+                    aria-current={isCv ? "page" : undefined}
+                    className={`unstyled block py-2 mono uppercase tracking-widest text-sm hover:text-accent ${
+                      isCv ? "text-heading" : "text-foreground/70"
+                    }`}
                   >
-                    <span className="text-xs text-muted mr-3">06</span>
-                    cv
+                    <span
+                      className={`text-xs mr-3 ${isCv ? "text-accent" : "text-muted"}`}
+                    >
+                      06
+                    </span>
+                    view cv
                   </Link>
                 </li>
               </ul>

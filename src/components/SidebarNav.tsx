@@ -82,6 +82,7 @@ export default function SidebarNav() {
               <a
                 href={`#${item.id}`}
                 onClick={(e) => handleClick(e, item.id)}
+                aria-current={isActive ? "location" : undefined}
                 className={`group flex items-center py-2.5 transition-all duration-200 mono text-xs uppercase tracking-widest ${
                   isActive ? "text-heading" : "text-muted hover:text-foreground"
                 }`}

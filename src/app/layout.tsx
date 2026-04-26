@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Muntazir Mehdi — Offensive Security",
   description:
-    "Junior offensive security professional based in Saudi Arabia. CPTS, BTL1, eJPT, CRTP in progress. Pentesting, red teaming, and detection work.",
+    "Junior offensive security professional based in Saudi Arabia. CPTS-certified, CRTP in progress, with hands-on Active Directory practice from HTB Pro Labs Dante and Zephyr.",
   keywords: [
     "cybersecurity",
     "offensive security",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Muntazir Mehdi — Offensive Security",
     description:
-      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, working through CRTP, hands-on with Active Directory and HTB Pro Labs.",
+      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, working through CRTP, hands-on with Active Directory in HTB Pro Labs Dante and Zephyr.",
     type: "website",
     url: "https://muntazirmehdi.com",
     siteName: "Muntazir Mehdi",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Muntazir Mehdi — Offensive Security",
     description:
-      "Junior offensive security professional based in Saudi Arabia. CPTS, BTL1, eJPT, CRTP in progress.",
+      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, CRTP in progress, and active on HTB Pro Labs.",
     images: ["/profile.png"],
   },
   robots: { index: true, follow: true },
@@ -68,7 +68,7 @@ export default function RootLayout({
     name: "Muntazir Mehdi",
     jobTitle: "Offensive Security",
     description:
-      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, working through CRTP.",
+      "Junior offensive security professional based in Saudi Arabia. CPTS-certified, working through CRTP, with practical HTB Pro Labs experience.",
     address: {
       "@type": "PostalAddress",
       addressRegion: "Eastern Province",

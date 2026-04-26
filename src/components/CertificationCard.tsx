@@ -16,9 +16,10 @@ export default function CertificationCard({
   logoSrc,
   logoAlt,
 }: Props) {
-  const isInProgress = issuer.includes("In progress");
+  const inProgressMatch = issuer.match(/\s*·\s*in progress$/i);
+  const isInProgress = Boolean(inProgressMatch);
   const [issuerMain, issuerTail] = isInProgress
-    ? issuer.split(" · In progress")
+    ? issuer.split(/\s*·\s*in progress/i)
     : [issuer, ""];
 
   return (
