@@ -59,12 +59,12 @@ export default function BlogToc() {
 
   return (
     <nav aria-label="Table of contents">
-      <ul className="space-y-3 text-[0.78rem] tracking-wider">
+      <ul className="max-h-[46vh] overflow-auto pr-1 space-y-2.5 text-[0.78rem]">
         {items.map((it) => (
           <li key={it.id} className={`group ${it.level === 3 ? "pl-4" : ""}`}>
             <a
               href={`#${it.id}`}
-              className={`uppercase ${
+              className={`leading-snug ${
                 activeId === it.id ? "text-heading font-semibold" : "text-foreground/60"
               } relative inline-block`}
             >
