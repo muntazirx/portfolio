@@ -1,5 +1,5 @@
 ---
-title: "What Dante Taught Me That CPTS Didn't"
+title: "Root Is Not The End: Lessons from the HTB Dante Pro Lab"
 year: "2026"
 readingTime: "6 min read"
 imageSrc: "/logos/dante_logo1.png"
@@ -9,7 +9,7 @@ keywords: ["Hack The Box", "Dante", "CPTS", "pivoting", "Ligolo-ng", "Active Dir
 
 If you are working through the Hack The Box CPTS path, Dante is probably one of the first labs that makes you realize standalone boxes do not prepare you for everything.
 
-Before sitting my CPTS exam, I spent time in Dante and Zephyr. Dante was the one that forced me to get comfortable with pivoting, credential reuse, and moving through a network without being handed a clean path.
+Before sitting my CPTS exam, I spent about a month working through Dante and Zephyr. Dante was the one that forced me to get comfortable with pivoting, credential reuse, and moving through a network without being handed a clean path.
 
 This is not a walkthrough, and I will not be spoiling machines or flags. It is more of a review of what Dante felt like, what helped me, and what I wish I had taken more seriously before starting.
 
@@ -20,7 +20,7 @@ This is not a walkthrough, and I will not be spoiling machines or flags. It is m
   <span className="block text-sm leading-relaxed text-foreground/90">
     Learn Ligolo-ng before you start. Track credentials from machine 1. Don't
     treat root like the end. And if you're doing this over weekends, draw the
-    damn map.
+    the map.
   </span>
 </div>
 
@@ -36,9 +36,7 @@ This is not a walkthrough, and I will not be spoiling machines or flags. It is m
 
 ## What Is Dante?
 
-Dante is a Hack The Box Pro Lab that simulates a small corporate network. It has 14 machines across multiple subnets, a mix of Windows and Linux systems, and 27 flags.
-
-On paper, that sounds manageable.
+Dante is a Hack The Box Pro Lab. 14 machines. Multiple subnets. Windows and Linux. 27 flags. On paper, that sounds manageable.
 
 In practice, the number of machines is not the hard part. The hard part is realizing that one compromised host may only matter because of what it lets you reach next. After a while, I stopped thinking about flags first and started asking a better question:
 
@@ -48,7 +46,7 @@ That mindset shift is what made Dante valuable.
 
 HTB labels Dante as beginner-friendly, and I understand why compared to harder Pro Labs. But if your experience is mostly standalone HTB boxes or Academy modules, Dante is still a serious jump.
 
-## Pivoting Is The Lab
+## Pivoting Is the Whole Lab
 
 The biggest lesson Dante taught me is that pivoting is not something you use once in a while. In Dante, pivoting becomes the whole workflow.
 
@@ -101,6 +99,7 @@ The loop became simple:
 4. Check what the machine can reach.
 5. Validate access against internal services.
 6. Repeat.
+7. Constantly.
 
 NetExec helped a lot here. When I had a credential pair and did not know where it worked, I could quickly test it across internal services instead of manually guessing one host at a time.
 
@@ -141,7 +140,7 @@ These are the tools I was glad to have ready before and during the lab:
 
 - **Ligolo-ng:** The main tool I used for pivoting. If you learn one thing before Dante, make it this.
 - **Chisel:** Useful as a backup tunneling option.
-- **LinPEAS and WinPEAS:** Helpful for privilege escalation enumeration, but not a replacement for manual checks.
+- **LinPEAS and WinPEAS:** Helpful for privilege escalation enumeration, but not a replacement for manual checks. In fact when u land into a machine run these tools first.
 - **NetExec:** Great for validating credentials and checking access across internal services.
 
 The tool that mattered most was still my notes.
