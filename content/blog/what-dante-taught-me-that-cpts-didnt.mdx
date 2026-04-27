@@ -1,0 +1,172 @@
+---
+title: "What Dante Taught Me That CPTS Didn't"
+year: "2026"
+readingTime: "6 min read"
+imageSrc: "/logos/dante_logo1.png"
+description: "Dante taught me the parts of internal pentesting that standalone boxes do not force enough: pivoting, credential reuse, note discipline, and treating root as the start of post-exploitation."
+keywords: ["Hack The Box", "Dante", "CPTS", "pivoting", "Ligolo-ng", "Active Directory", "internal pentesting", "credential reuse", "Pro Labs"]
+---
+
+If you are working through the Hack The Box CPTS path, Dante is probably one of the first labs that makes you realize standalone boxes do not prepare you for everything.
+
+Before sitting my CPTS exam, I spent time in Dante and Zephyr. Dante was the one that forced me to get comfortable with pivoting, credential reuse, and moving through a network without being handed a clean path.
+
+This is not a walkthrough, and I will not be spoiling machines or flags. It is more of a review of what Dante felt like, what helped me, and what I wish I had taken more seriously before starting.
+
+tl;dr: Learn Ligolo-ng before you start. Track credentials from the first machine. Do not treat root like the end. And if you are doing this lab over weekends, draw the map.
+
+<div className="my-8 flex justify-center">
+  <Image
+    src="/logos/dante_logo1.png"
+    alt="Hack The Box Dante Pro Lab logo"
+    width={720}
+    height={420}
+    className="h-auto w-full max-w-[520px] rounded-lg border border-foreground/10"
+  />
+</div>
+
+## What Is Dante?
+
+Dante is a Hack The Box Pro Lab that simulates a small corporate network. It has 14 machines across multiple subnets, a mix of Windows and Linux systems, and 27 flags.
+
+On paper, that sounds manageable.
+
+In practice, the number of machines is not the hard part. The hard part is realizing that one compromised host may only matter because of what it lets you reach next. After a while, I stopped thinking about flags first and started asking a better question:
+
+**What does this box give me access to?**
+
+That mindset shift is what made Dante valuable.
+
+HTB labels Dante as beginner-friendly, and I understand why compared to harder Pro Labs. But if your experience is mostly standalone HTB boxes or Academy modules, Dante is still a serious jump.
+
+## Pivoting Is The Lab
+
+The biggest lesson Dante taught me is that pivoting is not something you use once in a while. In Dante, pivoting becomes the whole workflow.
+
+After the first few machines, you are no longer just scanning from your own box and attacking whatever is exposed. You are routing through compromised hosts, checking what each machine can reach, and trying to understand how the network opens up as you move through it.
+
+Before I started, my friend Justin gave me one piece of advice that saved me a lot of frustration:
+
+**Learn Ligolo-ng properly.**
+
+I am glad I listened.
+
+The CPTS path covers tunneling, but Dante made me rely on it constantly. Once I stopped fighting with Ligolo-ng and got comfortable with the workflow, the lab became much easier to reason about. I still kept Chisel around as a backup, but Ligolo-ng quickly became my main way of moving through the network.
+
+<div className="panel rounded-lg p-4 my-8 text-center">
+  <Image
+    src="/logos/pivoting_gif.png"
+    alt="Pivoting workflow illustration"
+    width={960}
+    height={540}
+    className="mx-auto h-auto w-full max-w-[760px] rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 760px, 100vw"
+  />
+</div>
+
+A lot of people recommend drawing a full network map for Dante. That is good advice.
+
+Personally, I kept notes on subnets, credentials, compromised hosts, and routes. After a while, the topology started to make sense in my head.
+
+Would I recommend skipping the map? Not really.
+
+If you are doing Dante every day, you might get away with keeping some of it in your head. If you are doing it over weekends or taking long breaks, draw the map. You will forget routes faster than you think.
+
+## Credentials Matter More Than You Expect
+
+Dante punished one bad habit I had from normal HTB boxes: compromising a machine, grabbing the flag, and mentally moving on.
+
+That does not work well here.
+
+Every machine can contain something useful for later. A username, password, hash, config file, internal interface, reachable subnet, or just a small clue that does not make sense until later.
+
+The biggest habit I built during Dante was maintaining custom credential lists.
+
+Every username and password I found went into my notes and into separate `users.txt` and `passwords.txt` files. Those files stayed open constantly. Any time I found something new, I updated them before moving on.
+
+The loop became simple:
+
+1. Compromise a host.
+2. Loot it properly.
+3. Update the credential lists.
+4. Check what the machine can reach.
+5. Validate access against internal services.
+6. Repeat.
+
+NetExec helped a lot here. When I had a credential pair and did not know where it worked, I could quickly test it across internal services instead of manually guessing one host at a time.
+
+Password reuse is a big part of Dante, so even if a credential looks useless at first, keep it. More than once, something I found earlier only became useful later.
+
+## Root Is Not The End
+
+One of my favorite lessons from Dante is this:
+
+**In a normal box, root or SYSTEM feels like the end. In Dante, that might only be where the machine becomes useful.**
+
+That changed how I approached post-exploitation.
+
+Instead of rushing away after getting the flag, I had to slow down and ask better questions:
+
+- What networks can this machine see?
+- Are there internal services I missed?
+- Are there files, configs, or credentials lying around?
+- Does this host help me reach something I could not touch before?
+
+That was probably the biggest difference between Dante and standalone boxes. The flag is not always the real reward. Sometimes the real reward is the access the machine gives you.
+
+## The Part Where I Felt Stuck
+
+There were moments where I had access to a machine, had routes set up, had notes open, and still had no idea what to do next.
+
+Not because the lab was impossible, but because I had too many loose threads and not enough structure.
+
+That is where Dante becomes frustrating.
+
+Sometimes the answer is already in your notes, but you did not recognize it the first time. Or you found a credential earlier and forgot to test it somewhere else. Or you got root and moved on too quickly.
+
+That frustration is also why the lab is useful. It forces you to become more disciplined.
+
+## Tools That Helped Me
+
+These are the tools I was glad to have ready before and during the lab:
+
+- **Ligolo-ng:** The main tool I used for pivoting. If you learn one thing before Dante, make it this.
+- **Chisel:** Useful as a backup tunneling option.
+- **LinPEAS and WinPEAS:** Helpful for privilege escalation enumeration, but not a replacement for manual checks.
+- **NetExec:** Great for validating credentials and checking access across internal services.
+
+The tool that mattered most was still my notes.
+
+Messy notes make Dante harder than it needs to be. Clean notes make the lab feel much more manageable.
+
+## What I Would Do Differently
+
+If I started Dante again, I would be more disciplined from the first machine.
+
+I would track credentials, subnets, routes, and compromised hosts more cleanly instead of assuming I would remember everything. When you are deep in the lab, it is easy to think a route or credential pair is obvious.
+
+Two days later, it is not obvious at all.
+
+I would also slow down more after getting root or SYSTEM. Dante rewards post-exploitation, and some of the most useful progress comes after the flag.
+
+## Was Dante Worth It?
+
+Yes, absolutely.
+
+Dante was the lab where pivoting stopped being something I had studied and became something I had to manage for hours at a time. It made me more comfortable with internal enumeration, credential reuse, and thinking about a network as a whole instead of a list of separate machines.
+
+If you are preparing for CPTS, I think Dante is worth doing before the exam. It will not replace the Academy path, but it will make you faster and more comfortable with the things you already learned.
+
+<figure className="my-8">
+  <Image
+    src="/logos/dante_certificate.png"
+    alt="Hack The Box Dante Pro Lab certificate"
+    width={1200}
+    height={850}
+    className="mx-auto h-auto w-full max-w-[820px] rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 820px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    Dante completion certificate
+  </figcaption>
+</figure>
