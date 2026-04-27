@@ -34,7 +34,7 @@ export default function BlogCard({ title, year, readingTime, description, imageS
 
       {/* Content Column */}
       <div className="relative flex flex-col">
-        <h3 className="text-heading font-medium text-lg tracking-tight mb-1">
+        <h3 className="text-heading font-semibold text-lg tracking-tight mb-1">
           <Link href={href} className="unstyled group/link inline-flex items-baseline gap-1 hover:text-accent transition-colors">
             {title}
             <ArrowUpRight className="h-3.5 w-3.5 translate-y-0.5 opacity-0 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all" />

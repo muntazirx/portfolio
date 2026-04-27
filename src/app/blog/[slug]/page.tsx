@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import BlogToc from "@/components/BlogToc";
+import ViewCounter from "@/components/ViewCounter";
 import { siteMeta } from "@/data/site";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { ArrowLeft, Linkedin, Twitter } from "lucide-react";
@@ -178,6 +179,7 @@ export default async function BlogPost({ params }: Params) {
           {post.readingTime && (
             <span className="rounded border border-foreground/15 px-2 py-1">{post.readingTime}</span>
           )}
+          <ViewCounter slug={slug} />
         </div>
         <h1 className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-heading" style={{letterSpacing: "-0.01em"}}>
           {post.title}

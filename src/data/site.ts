@@ -288,3 +288,13 @@ export const education: EducationItem = {
 export const contactEmail = "info@muntazirmehdi.com";
 
 export const resumeUrl = "/Muntazir-Mehdi-CV.pdf";
+
+// Analytics. Privacy-friendly, no cookies, no consent banner needed.
+// Sign up at https://www.goatcounter.com (free for personal sites), then
+// paste your site code below. Stats live at https://<code>.goatcounter.com.
+// In your GoatCounter site settings, enable "Allow access to public stats"
+// so per-post view counts can render on each blog page.
+// Leave blank to disable analytics entirely.
+export const analytics = {
+  goatcounterCode: "" as string,
+};
