@@ -10,6 +10,7 @@ export type BlogPost = {
   slug: string;
   title: string;
   year: string;
+  date?: string;
   readingTime?: string;
   imageSrc?: string;
   description?: string;
@@ -29,6 +30,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const { content, frontmatter } = await compileMDX<{
     title: string;
     year: string;
+    date?: string;
     readingTime?: string;
     imageSrc?: string;
     description?: string;
@@ -57,6 +59,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     content,
     title: frontmatter.title,
     year: frontmatter.year,
+    date: frontmatter.date,
     readingTime: frontmatter.readingTime,
     imageSrc: frontmatter.imageSrc,
     description: frontmatter.description,
@@ -82,6 +85,7 @@ export async function getAllPosts(): Promise<Omit<BlogPost, "content">[]> {
         const { frontmatter } = await compileMDX<{
             title: string;
             year: string;
+            date?: string;
             readingTime?: string;
             imageSrc?: string;
             description?: string;
@@ -95,6 +99,7 @@ export async function getAllPosts(): Promise<Omit<BlogPost, "content">[]> {
           slug,
           title: frontmatter.title,
           year: frontmatter.year,
+          date: frontmatter.date,
           readingTime: frontmatter.readingTime,
           imageSrc: frontmatter.imageSrc,
           description: frontmatter.description,
@@ -103,6 +108,9 @@ export async function getAllPosts(): Promise<Omit<BlogPost, "content">[]> {
       })
   );
 
-  // Sort by year descending (or add a date field if needed)
-  return posts.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+  return posts.sort((a, b) => {
+    const aDate = a.date ?? `${a.year}-01-01`;
+    const bDate = b.date ?? `${b.year}-01-01`;
+    return new Date(bDate).getTime() - new Date(aDate).getTime();
+  });
 }

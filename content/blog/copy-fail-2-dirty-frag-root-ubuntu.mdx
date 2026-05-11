@@ -1,6 +1,7 @@
 ---
 title: "Root Without a Password: Testing Copy Fail 2 on Ubuntu 24.04"
 year: "2026"
+date: "2026-05-11"
 readingTime: "8 min read"
 imageSrc: "/blog/dirty-frag/initial-root-shell.png"
 description: "My hands-on test of the public Copy Fail 2 PoC on Ubuntu 24.04, how the CVE-2026-43284 xfrm and ESP page cache write path reached root, and what mitigation worked in my VM."
@@ -96,13 +97,11 @@ That is the class of bug Dirty Pipe made famous.
 
 Copy Fail 2 and Dirty Frag sit in the same family, but they should not be treated as the exact same demo. My test was Copy Fail 2 through xfrm and ESP.
 
-## Dirty Pipe, Copy Fail, and Dirty Frag
+## Same Bug Class, Different Path
 
 [Dirty Pipe](https://nvd.nist.gov/vuln/detail/CVE-2022-0847) showed that a kernel fast path could accidentally allow writes into page cache backed memory.
 
-The earlier Copy Fail issue followed the same general pattern through a different subsystem.
-
-Copy Fail 2 does it through xfrm and ESP. Dirty Frag chains xfrm and ESP with RxRPC.
+The earlier Copy Fail issue followed the same general pattern through a different subsystem. Copy Fail 2 does it through xfrm and ESP. Dirty Frag chains xfrm and ESP with RxRPC.
 
 The scary part is not that one subsystem had a bug. The scary part is that the same kind of failure keeps appearing in different optimized kernel paths.
 

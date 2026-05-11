@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const description = post.description ?? post.title ?? siteMeta.tagline;
   const url = `https://muntazirmehdi.com/blog/${slug}`;
   const keywords = post.keywords ? post.keywords.join(", ") : undefined;
+  const publishedTime = post.date ?? `${post.year}-01-01`;
   
   return {
     title,
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       description,
       type: "article",
       url,
-      publishedTime: `${post.year}-01-01`,
+      publishedTime,
       authors: [siteMeta.name],
       tags: post.keywords,
       images: post.imageSrc ? [{ 
@@ -74,7 +75,7 @@ export default async function BlogPost({ params }: Params) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    datePublished: `${post.year}-01-01`,
+    datePublished: post.date ?? `${post.year}-01-01`,
     author: {
       "@type": "Person",
       name: siteMeta.name,
