@@ -1,0 +1,320 @@
+---
+title: "Copy Fail 2 and Dirty Frag: Getting Root on Ubuntu 24.04 Without a Password"
+year: "2026"
+readingTime: "8 min read"
+imageSrc: "/blog/dirty-frag/initial-root-shell.png"
+description: "My hands-on test of the public Copy Fail 2 and Dirty Frag PoC on Ubuntu 24.04, how it reached root through a page cache write bug, and what mitigation worked in my VM."
+keywords: ["Dirty Frag", "Copy Fail 2", "CVE-2026-43284", "CVE-2026-43500", "Linux kernel", "Ubuntu 24.04", "local privilege escalation", "page cache", "xfrm", "ESP", "RxRPC", "Dirty Pipe"]
+---
+
+I tested the public Copy Fail 2 and Dirty Frag proof of concept on a fresh Ubuntu 24.04 live server VM, and it worked.
+
+No sudo password. No kernel panic. No unstable race. The exploit changed what `/etc/passwd` looked like in memory, used that to create a root shell, and then cleaned up afterward.
+
+This is my writeup of what I tested, what happened, and why the mitigation many people applied for the earlier Copy Fail issue is not enough for this one.
+
+<figure className="my-8">
+  <Image
+    src="/blog/dirty-frag/initial-root-shell.png"
+    alt="Terminal showing the Copy Fail 2 proof of concept landing in a root shell"
+    width={1054}
+    height={422}
+    className="mx-auto h-auto w-full rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 760px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    The PoC moved my normal user session into a root shell on the Ubuntu VM.
+  </figcaption>
+</figure>
+
+## The Short Version
+
+Dirty Frag is the public name being used for a Linux local privilege escalation chain in the same bug family as [Dirty Pipe](https://dirtypipe.cm4all.com/) and the earlier Copy Fail issue.
+
+The chain is being discussed around two page cache write bugs:
+
+- [CVE-2026-43284](https://www.cve.org/CVERecord?id=CVE-2026-43284), the xfrm and ESP page cache write issue. This is the path I tested in my VM, and it has an upstream Linux fix.
+- [CVE-2026-43500](https://www.cve.org/CVERecord?id=CVE-2026-43500), the RxRPC page cache write issue. At the time I am writing this, public reporting says this part is not fully patched upstream.
+
+The important idea is simple. A local unprivileged user gets a way to write into the kernel page cache, then turns that into root access.
+
+I tested the xfrm and ESP path on Ubuntu 24.04 with kernel `6.8.0-111-generic`.
+
+It worked.
+
+## My Test Environment
+
+The target was a normal Ubuntu 24.04 live server VM.
+
+```bash
+uname -r
+6.8.0-111-generic
+```
+
+My user was not root:
+
+```bash
+id
+uid=1000(muntazir) gid=1000(muntazir) groups=1000(muntazir),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),101(lxd)
+```
+
+The relevant `/etc/passwd` entry looked normal:
+
+```text
+muntazir:x:1000:1000:muntazir:/home/muntazir:/bin/bash
+```
+
+After running the PoC, I landed here:
+
+```bash
+root@dirty:/# id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+That was the point where this stopped being theoretical for me.
+
+## Why The Page Cache Matters
+
+When Linux reads a file from disk, it usually keeps the contents in memory. That memory is the page cache.
+
+If multiple processes read `/etc/passwd`, they may all read the same cached copy from memory instead of going back to disk each time. That is normal, and it is one reason Linux file IO is fast.
+
+The cache is supposed to be protected. A normal user can read files they have permission to read, but they should not be able to write into the cached copy of a file they do not own.
+
+That boundary matters a lot.
+
+If an unprivileged user can write into the page cache for `/etc/passwd`, programs like `su`, PAM, and login tools may read attacker controlled data from memory while the actual file on disk still looks legitimate.
+
+That is the class of bug Dirty Pipe made famous.
+
+Dirty Frag and Copy Fail 2 sit in the same family.
+
+## Dirty Pipe, Copy Fail, and Dirty Frag
+
+[Dirty Pipe](https://nvd.nist.gov/vuln/detail/CVE-2022-0847) showed that a kernel fast path could accidentally allow writes into page cache backed memory.
+
+The earlier Copy Fail issue followed the same general pattern through a different subsystem.
+
+Dirty Frag does it again through xfrm, ESP, and RxRPC.
+
+The scary part is not that one subsystem had a bug. The scary part is that the same kind of failure keeps appearing in different optimized kernel paths.
+
+This is not about guessing passwords or abusing a bad sudo rule. It is about convincing the kernel to write where it should never write.
+
+## What xfrm And ESP Have To Do With This
+
+`xfrm` is the Linux kernel framework used for IPsec transformations. ESP, short for Encapsulating Security Payload, is part of IPsec and handles encrypted packet data.
+
+Most users never interact with this directly. It is networking plumbing.
+
+The bug used by Copy Fail 2 abuses a fast path in this area. Instead of going through a slower copy, the kernel can move page references around for performance. That optimization is valid, but it becomes dangerous if page ownership and write safety are not handled correctly.
+
+In this case, the result is a page cache write primitive.
+
+That means a local user can influence data that later gets read as if it came from a real system file.
+
+## What The PoC Did On My VM
+
+The exploit looked for a suitable line in `/etc/passwd`.
+
+On my system, it selected the `fwupd-refresh` line because it was long enough to replace cleanly without changing the file size.
+
+The injected line looked like this:
+
+```text
+sick::0:0:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:/:/bin/bash
+```
+
+The important details are:
+
+- username: `sick`
+- UID: `0`
+- GID: `0`
+- password field: empty
+- shell: `/bin/bash`
+
+A UID of `0` means root.
+
+The empty password field matters because of how PAM is configured on many Ubuntu systems. With `pam_unix.so nullok`, an empty password can be accepted for an account that has no password set.
+
+So after the page cache mutation landed, the PoC used:
+
+```bash
+su - sick
+```
+
+PAM read `/etc/passwd`, saw the injected UID 0 account, accepted the empty password path, and gave me a root shell.
+
+<figure className="my-8">
+  <Image
+    src="/blog/dirty-frag/run-output.png"
+    alt="Copy Fail 2 run output showing the injected sick user and root id result"
+    width={828}
+    height={166}
+    className="mx-auto h-auto w-full rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 760px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    The exploit verified the page cache mutation, then switched to the injected UID 0 user.
+  </figcaption>
+</figure>
+
+## Proof That It Was Real Root
+
+After landing in the shell, I checked the user ID:
+
+```bash
+id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+Then I checked `/etc/passwd` and `/etc/shadow`.
+
+<figure className="my-8">
+  <Image
+    src="/blog/dirty-frag/passwd-sick-user.png"
+    alt="Terminal showing whoami as root and the injected sick user in /etc/passwd"
+    width={739}
+    height={211}
+    className="mx-auto h-auto w-full rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 760px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    `/etc/passwd` showed the injected `sick` account with UID 0.
+  </figcaption>
+</figure>
+
+Reading `/etc/shadow` confirmed this was not just a fake root inside a namespace.
+
+<figure className="my-8">
+  <Image
+    src="/blog/dirty-frag/shadow-uname-proof.png"
+    alt="Terminal showing /etc/shadow output and kernel version 6.8.0-111-generic"
+    width={427}
+    height={179}
+    className="mx-auto h-auto w-full max-w-[620px] rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 620px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    Reading `/etc/shadow` and checking the kernel version from the root shell.
+  </figcaption>
+</figure>
+
+## Cleanup
+
+The PoC also had a cleanup mode.
+
+After exiting the root shell, I ran:
+
+```bash
+./run.sh --clean
+```
+
+It restored the original `fwupd-refresh` line and removed the state file.
+
+<figure className="my-8">
+  <Image
+    src="/blog/dirty-frag/cleanup.png"
+    alt="Terminal showing Copy Fail 2 cleanup restoring the fwupd-refresh line"
+    width={695}
+    height={133}
+    className="mx-auto h-auto w-full rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 760px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    Cleanup restored the original line that had been used during the test.
+  </figcaption>
+</figure>
+
+## Testing The Mitigation
+
+For the earlier Copy Fail issue, many people focused on blocking `algif_aead`.
+
+That does not stop this path.
+
+Copy Fail 2 used xfrm and ESP in my test. Dirty Frag also discusses RxRPC. So the temporary mitigation I tested was to block those module paths:
+
+```bash
+sudo sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; true"
+```
+
+After applying that, the exploit no longer landed.
+
+<figure className="my-8">
+  <Image
+    src="/blog/dirty-frag/mitigation-failed.png"
+    alt="Terminal showing xfrm install failed and mutation did not land after mitigation"
+    width={501}
+    height={168}
+    className="mx-auto h-auto w-full max-w-[620px] rounded border border-foreground/10"
+    sizes="(min-width: 1024px) 620px, 100vw"
+  />
+  <figcaption className="mt-2 text-center text-sm text-muted">
+    After blocking the modules, the xfrm setup failed and the mutation did not land.
+  </figcaption>
+</figure>
+
+That is the result you want to see. The xfrm and ESP path could not be used, so the page cache mutation did not happen.
+
+## The Tradeoff
+
+This mitigation is not free for everyone.
+
+Blocking `esp4` and `esp6` can break IPsec based VPNs. Blocking `rxrpc` can affect systems using AFS or other RxRPC dependent workloads.
+
+For many desktops, lab machines, and small servers, that tradeoff may be acceptable. For environments that rely on IPsec or RxRPC, the real answer is a patched kernel and proper validation.
+
+The main point is that blacklisting `algif_aead` for the earlier Copy Fail issue does not protect against this.
+
+Dirty Frag reaches the same kind of result through different kernel subsystems.
+
+## Why This One Feels Worse
+
+What stood out to me was how quiet the exploit was.
+
+It did not crash the machine. It did not take dozens of tries. It did not need a visible race. When it worked, it changed what a system file looked like in memory and then let normal Linux authentication code do the rest.
+
+That is what makes this bug class dangerous.
+
+Security tooling often watches for noisy behavior, such as kernel crashes, repeated failed exploitation attempts, suspicious sudo activity, or obvious persistence. This did not look like that in my test. It was fast and clean.
+
+The file on disk was not permanently rewritten in the usual way. The exploit abused what the system believed it had cached.
+
+## What Defenders Should Check
+
+If you manage Linux systems, I would check three things immediately.
+
+1. Check whether your kernel includes the upstream fix for [CVE-2026-43284](https://www.cve.org/CVERecord?id=CVE-2026-43284).
+2. Check whether your distribution has shipped guidance or patches for [CVE-2026-43500](https://www.cve.org/CVERecord?id=CVE-2026-43500).
+3. If you do not need IPsec or RxRPC, consider blocking the affected modules until your distribution ships a proper fix.
+
+The temporary mitigation I tested was:
+
+```bash
+sudo sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; true"
+```
+
+If you depend on IPsec, do not blindly apply this in production without testing. You may break VPN connectivity.
+
+## Final Thoughts
+
+I went into this expecting another interesting kernel PoC. After testing it, I think it deserves attention.
+
+Dirty Frag is not only about one CVE. It is another example of the same broader problem: optimized kernel paths that accidentally bypass the safety rules normal file writes have to follow.
+
+Dirty Pipe showed the pattern. Copy Fail showed it again. Dirty Frag shows that the class is still alive.
+
+If your response to the earlier Copy Fail issue was only to block `algif_aead`, revisit that assumption. This one uses a different route.
+
+On my Ubuntu 24.04 VM, the public PoC turned an ordinary local user into root. That is enough reason to patch, mitigate, and take this bug class seriously.
+
+## References
+
+- [Copy Fail 2 PoC](https://github.com/0xdeadbeefnetwork/Copy_Fail2-Electric_Boogaloo)
+- [Dirty Frag official repository](https://github.com/V4bel/dirtyfrag)
+- [CVE-2026-43284 record](https://www.cve.org/CVERecord?id=CVE-2026-43284)
+- [CVE-2026-43500 record](https://www.cve.org/CVERecord?id=CVE-2026-43500)
+- [Upstream Linux xfrm fix](https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=f4c50a4034e62ab75f1d5cdd191dd5f9c77fdff4)
+- [oss security disclosure](https://www.openwall.com/lists/oss-security/2026/05/07/8)
+- [Dirty Pipe writeup](https://dirtypipe.cm4all.com/)
+- [NVD entry for Dirty Pipe CVE-2022-0847](https://nvd.nist.gov/vuln/detail/CVE-2022-0847)
