@@ -1,15 +1,15 @@
 ---
-title: "Copy Fail 2: Getting Root on Ubuntu 24.04 Without a Password"
+title: "Root Without a Password: Testing Copy Fail 2 on Ubuntu 24.04"
 year: "2026"
 readingTime: "8 min read"
 imageSrc: "/blog/dirty-frag/initial-root-shell.png"
-description: "My hands-on test of the public Copy Fail 2 PoC on Ubuntu 24.04, how the xfrm and ESP page cache write path reached root, and what mitigation worked in my VM."
+description: "My hands-on test of the public Copy Fail 2 PoC on Ubuntu 24.04, how the CVE-2026-43284 xfrm and ESP page cache write path reached root, and what mitigation worked in my VM."
 keywords: ["Dirty Frag", "Copy Fail 2", "CVE-2026-43284", "CVE-2026-43500", "Linux kernel", "Ubuntu 24.04", "local privilege escalation", "page cache", "xfrm", "ESP", "RxRPC", "Dirty Pipe"]
 ---
 
-I tested the public Copy Fail 2 proof of concept on a fresh Ubuntu 24.04 live server VM, and it worked.
+I tested the public Copy Fail 2 proof of concept on a fresh Ubuntu 24.04 live server VM. It worked.
 
-No sudo password. No kernel panic. No unstable race. The exploit changed what `/etc/passwd` looked like in memory, used that to create a root shell, and then cleaned up afterward.
+No sudo password. No kernel panic. No unstable race. The exploit quietly changed what `/etc/passwd` looked like in memory, used that to open a root shell, and then cleaned up afterward. The file on disk was never rewritten in the normal way.
 
 This is my writeup of what I actually tested: the Copy Fail 2 xfrm and ESP path. Dirty Frag is related and important context, especially because of the RxRPC bug, but I do not want to pretend I demonstrated both paths when I only ran one PoC in my VM.
 
@@ -27,16 +27,21 @@ This is my writeup of what I actually tested: the Copy Fail 2 xfrm and ESP path.
   </figcaption>
 </figure>
 
+## Clearing Up The Naming
+
+There are a few names floating around, and they are worth separating before going further.
+
+- Copy Fail is the earlier vulnerability in this family, tracked as [CVE-2026-31431](https://www.cve.org/CVERecord?id=CVE-2026-31431). Its common mitigation focused on blocking `algif_aead`.
+- Copy Fail 2 is the public PoC I tested here. It targets [CVE-2026-43284](https://www.cve.org/CVERecord?id=CVE-2026-43284), the xfrm and ESP page cache write issue.
+- Dirty Frag is the broader research from [Hyunwoo Kim](https://x.com/v4bel). It chains [CVE-2026-43284](https://www.cve.org/CVERecord?id=CVE-2026-43284) with [CVE-2026-43500](https://www.cve.org/CVERecord?id=CVE-2026-43500), the related RxRPC page cache write issue.
+
+So this post is specifically about Copy Fail 2 and `CVE-2026-43284`. I mention Dirty Frag because the mitigation overlaps and because it explains why blocking only the old Copy Fail path is not enough.
+
 ## The Short Version
 
 The PoC I ran was Copy Fail 2, using the xfrm and ESP page cache write path.
 
-Dirty Frag is the broader public research and naming being used around the same page cache write bug family. It matters here because it discusses a related RxRPC path, but that is not the path I demonstrated in the screenshots below.
-
-There are two CVEs worth separating:
-
-- [CVE-2026-43284](https://www.cve.org/CVERecord?id=CVE-2026-43284), the xfrm and ESP page cache write issue. This is the path I tested in my VM, and it has an upstream Linux fix.
-- [CVE-2026-43500](https://www.cve.org/CVERecord?id=CVE-2026-43500), the RxRPC page cache write issue discussed in Dirty Frag reporting. I did not test this path. At the time I am writing this, public reporting says this part is not fully patched upstream.
+Dirty Frag is related, but it is not the exact same thing I demonstrated. Dirty Frag chains the xfrm and ESP issue with an RxRPC issue to cover more environments. My screenshots below show the xfrm and ESP path only.
 
 The important idea is simple. A local unprivileged user gets a way to write into the kernel page cache, then turns that into root access.
 
@@ -97,7 +102,7 @@ Copy Fail 2 and Dirty Frag sit in the same family, but they should not be treate
 
 The earlier Copy Fail issue followed the same general pattern through a different subsystem.
 
-Copy Fail 2 does it through xfrm and ESP. Dirty Frag reporting also discusses RxRPC.
+Copy Fail 2 does it through xfrm and ESP. Dirty Frag chains xfrm and ESP with RxRPC.
 
 The scary part is not that one subsystem had a bug. The scary part is that the same kind of failure keeps appearing in different optimized kernel paths.
 
@@ -114,6 +119,18 @@ The bug used by Copy Fail 2 abuses a zero-copy fast path in this area. Instead o
 In this case, the result is a page cache write primitive.
 
 That means a local user can influence data that later gets read as if it came from a real system file.
+
+## Why Dirty Frag Chains Two Bugs
+
+This part matters even though I only tested the xfrm and ESP path.
+
+According to the Dirty Frag README, the xfrm and ESP primitive is powerful and present on most distributions, but it requires the privilege to create a namespace. Some Ubuntu systems block unprivileged user namespace creation through AppArmor policy. In that environment, the xfrm and ESP path alone may fail.
+
+The RxRPC primitive is different. It does not require namespace creation privileges, but the `rxrpc.ko` module is not included or loaded everywhere. Ubuntu is the important exception called out by the Dirty Frag research, because `rxrpc.ko` may be available there by default.
+
+That is why Dirty Frag chains both issues. xfrm and ESP covers many systems where namespaces are allowed. RxRPC covers Ubuntu environments where namespace creation is blocked but RxRPC is available.
+
+In my VM, Copy Fail 2 worked because the xfrm and ESP path was reachable. On a more locked-down Ubuntu system, the standalone Copy Fail 2 PoC may fail while the full Dirty Frag chain could still have a working path.
 
 ## What The PoC Did On My VM
 
@@ -236,11 +253,13 @@ For the earlier Copy Fail issue, many people focused on blocking `algif_aead`.
 
 That does not stop this path.
 
-Copy Fail 2 used xfrm and ESP in my test. Dirty Frag reporting also discusses RxRPC, so the temporary mitigation I tested blocked both the demonstrated xfrm and ESP path and the related RxRPC module path:
+Copy Fail 2 used xfrm and ESP in my test. Dirty Frag also discusses RxRPC, so the temporary mitigation blocks both the demonstrated xfrm and ESP path and the related RxRPC module path:
 
 ```bash
-sudo sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; true"
+sudo sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; echo 3 > /proc/sys/vm/drop_caches; true"
 ```
+
+The `drop_caches` step matters after testing because the page cache may already be polluted. Rebooting also clears it.
 
 After applying that, the exploit no longer landed.
 
@@ -260,6 +279,8 @@ After applying that, the exploit no longer landed.
 
 That is the result you want to see. The xfrm and ESP path could not be used, so the page cache mutation did not happen.
 
+Blocking `rxrpc` may look odd if the demo only used xfrm and ESP. The reason it is included is Dirty Frag: `rxrpc` is the second page cache write path tracked as `CVE-2026-43500`. Blocking `esp4` and `esp6` addresses the Copy Fail 2 path I tested. Blocking `rxrpc` covers the related Dirty Frag path as well.
+
 ## The Tradeoff
 
 This mitigation is not free for everyone.
@@ -271,6 +292,15 @@ For many desktops, lab machines, and small servers, that tradeoff may be accepta
 The main point is that blacklisting `algif_aead` for the earlier Copy Fail issue does not protect against the Copy Fail 2 path I tested.
 
 Dirty Frag is relevant because it points to the same kind of result through another kernel subsystem, but I am keeping that separate from my own demo.
+
+## Patch Status
+
+Both CVEs now have upstream Linux fixes:
+
+- [CVE-2026-43284](https://www.cve.org/CVERecord?id=CVE-2026-43284), the xfrm and ESP issue, was fixed upstream in [`f4c50a4034e6`](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=f4c50a4034e62ab75f1d5cdd191dd5f9c77fdff4).
+- [CVE-2026-43500](https://www.cve.org/CVERecord?id=CVE-2026-43500), the RxRPC issue, was fixed upstream in [`aa54b1d27fe0`](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=aa54b1d27fe0c2b78e664a34fd0fdf7cd1960d71).
+
+That does not automatically mean your distribution kernel is fixed. Check your distro's security advisory or package changelog and update as soon as patched kernels are available.
 
 ## Why This One Feels Worse
 
@@ -295,7 +325,7 @@ If you manage Linux systems, I would check three things immediately.
 The temporary mitigation I tested was:
 
 ```bash
-sudo sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; true"
+sudo sh -c "printf 'install esp4 /bin/false\ninstall esp6 /bin/false\ninstall rxrpc /bin/false\n' > /etc/modprobe.d/dirtyfrag.conf; rmmod esp4 esp6 rxrpc 2>/dev/null; echo 3 > /proc/sys/vm/drop_caches; true"
 ```
 
 If you depend on IPsec, do not blindly apply this in production without testing. You may break VPN connectivity.
@@ -319,6 +349,7 @@ On my Ubuntu 24.04 VM, the public Copy Fail 2 PoC turned an ordinary local user 
 - [CVE-2026-43284 record](https://www.cve.org/CVERecord?id=CVE-2026-43284)
 - [CVE-2026-43500 record](https://www.cve.org/CVERecord?id=CVE-2026-43500)
 - [Upstream Linux xfrm fix](https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git/commit/?id=f4c50a4034e62ab75f1d5cdd191dd5f9c77fdff4)
+- [Upstream Linux RxRPC fix](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=aa54b1d27fe0c2b78e664a34fd0fdf7cd1960d71)
 - [oss security disclosure](https://www.openwall.com/lists/oss-security/2026/05/07/8)
 - [Dirty Pipe writeup](https://dirtypipe.cm4all.com/)
 - [NVD entry for Dirty Pipe CVE-2022-0847](https://nvd.nist.gov/vuln/detail/CVE-2022-0847)
