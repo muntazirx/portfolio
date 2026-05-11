@@ -3,7 +3,7 @@ title: "Root Without a Password: Testing Copy Fail 2 on Ubuntu 24.04"
 year: "2026"
 date: "2026-05-11"
 readingTime: "8 min read"
-imageSrc: "/blog/dirty-frag/initial-root-shell.png"
+imageSrc: "/blog/dirty-frag/copyfail2-banner.jpg"
 description: "My hands-on test of the public Copy Fail 2 PoC on Ubuntu 24.04, how the CVE-2026-43284 xfrm and ESP page cache write path reached root, and what mitigation worked in my VM."
 keywords: ["Dirty Frag", "Copy Fail 2", "CVE-2026-43284", "CVE-2026-43500", "Linux kernel", "Ubuntu 24.04", "local privilege escalation", "page cache", "xfrm", "ESP", "RxRPC", "Dirty Pipe"]
 ---
@@ -16,15 +16,15 @@ This writeup covers the Copy Fail 2 xfrm and ESP path. Dirty Frag is related con
 
 <figure className="my-8">
   <Image
-    src="/blog/dirty-frag/initial-root-shell.png"
-    alt="Terminal showing the Copy Fail 2 proof of concept landing in a root shell"
-    width={1054}
-    height={422}
+    src="/blog/dirty-frag/copyfail2-banner.jpg"
+    alt="Copy Fail 2 explained banner for Ubuntu 24.04 privilege escalation testing"
+    width={1024}
+    height={540}
     className="mx-auto h-auto w-full rounded border border-foreground/10"
     sizes="(min-width: 1024px) 760px, 100vw"
   />
   <figcaption className="mt-2 text-center text-sm text-muted">
-    The PoC moved my normal user session into a root shell on the Ubuntu VM.
+    Copy Fail 2, tested on Ubuntu 24.04.
   </figcaption>
 </figure>
 
